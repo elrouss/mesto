@@ -1,0 +1,16 @@
+.profile__add-button {
+  padding: 0;
+  max-width: 150px;
+  background-color: inherit;
+  border: none;
+  grid-area: add-button;
+  align-self: center;
+  justify-self: flex-end;
+  cursor: pointer;
+  filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .25));
+  transition: opacity .9s ease;
+}
+
+.profile__add-button:hover {
+  opacity: .6;
+}
