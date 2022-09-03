@@ -1,0 +1,11 @@
+.gallery__item-icon {
+  grid-area: icon;
+  align-self: center;
+  justify-self: center;
+  cursor: pointer;
+  transition: opacity .4s ease;
+}
+
+.gallery__item-icon:hover {
+  opacity: .5;
+}
