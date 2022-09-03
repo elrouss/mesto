@@ -1,0 +1,13 @@
+.gallery__item-title {
+  margin: 0;
+  padding-left: 21px;
+  color: #000;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: calc(29 / 24 * 100%);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  grid-area: title;
+  align-self: center;
+}
