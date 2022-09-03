@@ -1,11 +1,10 @@
 .content {
   margin-top: 40px;
-  max-width: 880px;
 }
 
 @media (max-width: 1279px) {
   .content {
-    margin-top: 38.25px;
+    margin: 42px auto 0 auto;
     max-width: calc(282px + (598 + 598 * .7) * (100vw - 320px) / 1279);
   }
 }

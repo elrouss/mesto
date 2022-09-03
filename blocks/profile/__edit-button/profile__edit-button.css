@@ -1,15 +1,22 @@
 .profile__edit-button {
   padding: 0;
-  max-width: 24px;
+  width: 24px;
   background-color: inherit;
   border: none;
   grid-area: edit-button;
   align-self: flex-end;
   cursor: pointer;
-  transition: opacity .9s ease;
+  transition: opacity .4s ease;
 }
 
 .profile__edit-button:hover {
   opacity: .6;
   filter: drop-shadow(0 4px 4px rgba(0, 0, 0, .25));
+}
+
+@media (max-width: 800px) {
+  .profile__edit-button {
+    width: calc(18px + (6 + 6 * .7) * (100vw - 320px) / 800);
+    padding-left: 18px;
+  }
 }

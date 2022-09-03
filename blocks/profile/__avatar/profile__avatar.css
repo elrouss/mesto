@@ -1,6 +1,5 @@
 .profile__avatar {
   max-width: 120px;
-  object-fit: cover;
   border-radius: 60px;
   grid-area: avatar;
 }
