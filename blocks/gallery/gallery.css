@@ -1,5 +1,5 @@
 .gallery {
-  margin-top: 47.25px;
+  margin-top: 51px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: 17px;
