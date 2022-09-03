@@ -1,0 +1,6 @@
+.profile {
+  display: grid;
+  grid-template-columns: 120px 366px 394px;
+  grid-template-areas:
+    'avatar info add-button';
+}

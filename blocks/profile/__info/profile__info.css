@@ -1,0 +1,11 @@
+.profile__info {
+  padding-left: 30px;
+  grid-area: info;
+  display: grid;
+  align-self: center;
+  row-gap: 11px;
+  column-gap: 18px;
+  grid-template-areas:
+    'title edit-button'
+    'subtitle .';
+}

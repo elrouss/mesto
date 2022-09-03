@@ -1,9 +1,11 @@
 .content {
+  margin-top: 36.25px;
   max-width: 880px;
 }
 
 @media (max-width: 1279px) {
   .content {
+    margin-top: 38.25px;
     max-width: calc(282px + (598 + 598 * .7) * (100vw - 320px) / 1279);
   }
 }
