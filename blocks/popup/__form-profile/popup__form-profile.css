@@ -1,0 +1,16 @@
+.popup__form-profile {
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: #000;
+  display: flex;
+  flex-direction: column;
+  row-gap: 17px;
+}
+
+@media (max-width: 696px) {
+  .popup__form-profile {
+    row-gap: 20px;
+  }
+}
+
