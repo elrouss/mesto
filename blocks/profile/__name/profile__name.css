@@ -1,14 +1,17 @@
-.profile__title {
+.profile__name {
   margin: 0;
   font-weight: 500;
   font-size: 42px;
   line-height: calc(48 / 42 * 100%);
   text-shadow: 0 4px 4px rgba(0, 0, 0, .25);
   grid-area: title;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 @media (max-width: 800px) {
-  .profile__title {
+  .profile__name {
     font-size: calc(27px + (15 + 15 * .7) * (100vw - 320px) / 800);
     line-height: calc(33 / 27 * 100%);
   }
