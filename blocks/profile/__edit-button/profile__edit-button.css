@@ -17,6 +17,6 @@
 @media (max-width: 800px) {
   .profile__edit-button {
     width: calc(18px + (6 + 6 * .7) * (100vw - 320px) / 800);
-    padding-left: 18px;
+    margin-left: 18px;
   }
 }
