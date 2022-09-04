@@ -1,0 +1,9 @@
+.profile__edit-button-size {
+  width: inherit;
+}
+
+@media (max-width: 800px) {
+  .profile__edit-button-size {
+    width: inherit;
+  }
+}

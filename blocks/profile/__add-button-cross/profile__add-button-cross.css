@@ -1,0 +1,10 @@
+.profile__add-button-cross {
+  width: 22px;
+  padding: 10px 60px;
+}
+
+@media (max-width: 800px) {
+  .profile__add-button-cross {
+    width: 16px;
+  }
+}

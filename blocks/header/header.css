@@ -1,0 +1,17 @@
+.header {
+  margin-top: 45px;
+}
+
+@media (max-width: 1279px) {
+  .header {
+    margin-top: calc(28px + (17 + 17 * .7) * (100vw - 320px) / 1279);
+  }
+}
+
+@media (max-width: 800px) {
+  .header {
+    max-width: 664px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
