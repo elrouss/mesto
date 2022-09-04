@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="distribution" content="global">
     <meta name="description" content="Сайт посвящен Жаку-Иву Кусто (1910-1997), выдающемуся французскому исследователю
-    Мирового океана, фотографу, режиссеру, изобретателю, автору множества книг и фильмов. Страница реализована в качестве
-    проектной работы студента Яндекс.Практикума, обучающегося профессии веб-разработчика.">
+    Мирового океана, фотографу, режиссеру, изобретателю, автору множества книг и фильмов.">
     <meta name="author" content="Борис Зашляпин">
     <title>Mesto</title>
     <link rel="stylesheet" href="./pages/index.css">
@@ -19,8 +18,8 @@
       <section class="profile">
         <img src="./images/cousteau-avatar.jpg" alt="Аватар с фотографией Жака-Ива Кусто" class="profile__avatar">
           <div class="profile__info">
-            <h1 class="profile__title">Жак-Ив Кусто</h1>
-            <p class="profile__subtitle">Исследователь океана</p>
+            <h1 class="profile__name">Жак-Ив Кусто</h1>
+            <p class="profile__job">Исследователь океана</p>
             <button class="profile__edit-button">
               <img src="./images/edit-button.svg" alt="Кнопка редактирования информации" class="profile__edit-button-size">
             </button>
@@ -70,11 +69,11 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <form class="popup__form">
           <fieldset class="popup__form-profile">
-            <input type="text" class="popup__field popup__field_place_title">
-            <input type="text" class="popup__field popup__field_place_subtitle">
+            <input type="text" value="" class="popup__field popup__field_place_name">
+            <input type="text" value="" class="popup__field popup__field_place_job">
           </fieldset>
+          <button class="popup__submit-button">Сохранить</button>
         </form>
-        <button class="popup__submit-button">Сохранить</button>
         <img src="./images/popup_close-icon.svg" alt="Кнопка закрытия модального окна" class="popup__close-icon">
       </div>
     </section>
