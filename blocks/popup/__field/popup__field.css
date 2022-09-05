@@ -1,9 +1,7 @@
 .popup__field {
   width: 358px;
-  border: 1px solid rgba(0, 0, 0, .2);
-  border-top: none;
-  border-right: none;
-  border-left: none;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
   padding-bottom: 13px;
   font-weight: 400;
   font-size: 14px;
@@ -11,7 +9,10 @@
 }
 
 .popup__field:focus {
-  outline: none;
+  border-bottom: none;
+  outline: .8px solid #000;
+  border-radius: 1.2px;
+  box-shadow: 0 0 1.5px #000;
 }
 
 @media (max-width: 696px) {

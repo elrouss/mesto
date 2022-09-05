@@ -1,7 +1,12 @@
 .profile__add-button {
   padding: 0;
   width: 150px;
+  height: 50px;
+  background-image: url(../../../images/add-button.svg);
+  background-repeat: no-repeat;
   background-color: inherit;
+  background-position: center;
+  background-size: 22px;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
   grid-area: add-button;
@@ -19,8 +24,8 @@
 @media (max-width: 800px) {
   .profile__add-button {
     margin-top: 36px;
-    justify-self: inherit;
     width: 282px;
-    height: 50px;
+    justify-self: inherit;
+    background-size: 16px;
   }
 }
