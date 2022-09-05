@@ -7,8 +7,8 @@ const closePopupEditProfileInfo = document.querySelector('.popup__close-button')
 
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector ('.profile__job');
-const nameInput = document.querySelector('input[name="profileName"]');
-const jobInput = document.querySelector('input[name="profileJob"]');
+const nameInput = document.editProfileInfo.profileName;
+const jobInput = document.editProfileInfo.profileJob;
 
 
 const togglePopupEditProfileInfo = () => {
