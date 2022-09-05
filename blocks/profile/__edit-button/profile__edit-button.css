@@ -1,6 +1,12 @@
 .profile__edit-button {
+  margin-bottom: 6px;
   padding: 0;
   width: 24px;
+  height: 24px;
+  background-image: url(../../../images/edit-button.svg);
+  background-repeat: no-repeat;
+  background-position: right;
+  background-size: contain;
   background-color: inherit;
   border: none;
   grid-area: edit-button;
@@ -17,6 +23,9 @@
 @media (max-width: 800px) {
   .profile__edit-button {
     width: calc(18px + (6 + 6 * .7) * (100vw - 320px) / 800);
-    margin-left: 18px;
+    height: calc(18px + (6 + 6 * .7) * (100vw - 320px) / 800);
+    padding-left: 18px;
+    box-sizing: content-box;
+    margin-bottom: 0;
   }
 }

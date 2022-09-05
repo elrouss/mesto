@@ -10,18 +10,3 @@
     'image image'
     'title icon';
 }
-
-@media (max-width: 696px) {
-  .gallery__item {
-    max-width: 400px;
-    grid-template-columns: minmax(282px, 400px) 64px;
-    grid-template-rows: minmax(282px, 400px) 79px;
-  }
-}
-
-@media (max-width: 380px) {
-  .gallery__item {
-    grid-template-columns: 218px 64px;
-    grid-template-rows: 282px 79px;
-  }
-}
