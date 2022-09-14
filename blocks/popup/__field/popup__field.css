@@ -15,6 +15,10 @@
   box-shadow: 0 0 1.5px #000;
 }
 
+.popup__field::placeholder {
+  color: #c4c4c4;
+}
+
 @media (max-width: 696px) {
   .popup__field {
     width: 238px;
