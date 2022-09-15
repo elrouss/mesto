@@ -4,7 +4,6 @@
 // Открытие и закрытие модальных окон
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
-const popupClosingButton = document.querySelector('.popup__closing-button');
 
 const popup = document.querySelectorAll('.popup');
 const popupEditingProfileInfo = document.querySelector('.popup_type_edit-profile');
@@ -12,8 +11,12 @@ const closingButtonPopupEditProfileInfo = document.querySelector('.popup__closin
 const popupAddingPhotocard = document.querySelector('.popup_type_add-photocard');
 const closingButtonPopupAddPhotocard = document.querySelector('.popup__closing-button_type_add-photocard');
 
-const togglePopup = (popup) => {
-  popup.classList.toggle('popup_opened');
+const openPopup = (popup) => {
+  popup.classList.add('popup_opened');
+};
+
+const closePopup = (popup) => {
+  popup.classList.remove('popup_opened');
 };
 
 const profileName = document.querySelector('.profile__name');
@@ -27,21 +30,21 @@ const transferProfileInfo = () => {
 };
 
 profileEditButton.addEventListener('click', () => {
-  togglePopup(popupEditingProfileInfo);
+  openPopup(popupEditingProfileInfo);
   transferProfileInfo();
 });
 
-popupClosingButton.addEventListener('click', () => {
-togglePopup(closingButtonPopupEditProfileInfo);
+closingButtonPopupEditProfileInfo.addEventListener('click', () => {
+  closePopup(popupEditingProfileInfo);
 });
 
 profileAddButton.addEventListener('click', () => {
-  togglePopup(popupAddingPhotocard);
+  openPopup(popupAddingPhotocard);
 });
 
-popupClosingButton.addEventListener('click', () => {
-  togglePopup(closingButtonPopupAddPhotocard);
-  });
+closingButtonPopupAddPhotocard.addEventListener('click', () => {
+  closePopup(popupAddingPhotocard);
+});
 
 // Редактирование информации профиля в модальном окне с сохранением значений
 // и автоматическим закрытием окна после успешной отправки данных
@@ -53,7 +56,7 @@ function formSubmitHandler (evt) {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
 
-  togglePopup(popupEditingProfileInfo);
+  openPopup(popupEditingProfileInfo);
 };
 
 formEl.addEventListener('submit', formSubmitHandler);
