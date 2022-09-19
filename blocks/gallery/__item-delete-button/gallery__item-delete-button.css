@@ -1,4 +1,5 @@
 .gallery__item-delete-button {
+  padding: 0;
   width: 18px;
   height: 19px;
   background: url(../../../images/icon-delete.svg) center no-repeat;
