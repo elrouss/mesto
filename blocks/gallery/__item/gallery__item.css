@@ -9,4 +9,5 @@
   grid-template-areas:
     'image image'
     'title icon';
+  position: relative;
 }

@@ -1,0 +1,8 @@
+.gallery__item-like-button_active {
+  background: url(../../../../images/icon-like_active.svg);
+  transition: opacity;
+}
+
+.gallery__item-like-button_active:hover {
+  opacity: 1;
+}

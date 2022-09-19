@@ -9,7 +9,7 @@
   align-self: center;
   justify-self: center;
   cursor: pointer;
-  transition: opacity .4s ease;
+  transition: opacity .1s ease;
 }
 
 .gallery__item-like-button:hover {

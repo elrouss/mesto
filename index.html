@@ -24,53 +24,50 @@
           </div>
           <button type="button" aria-label="Кнопка добавления фотокарточек в галерею" class="profile__add-button"></button>
       </section>
-      <section class="gallery" aria-label="Галерея фотокарточек">
-        <article class="gallery__item">
-          <img src="./images/Karachaevsk.jpg" alt="Сентинский храм" class="gallery__item-image">
-          <h2 class="gallery__item-title">Карачаево-Черкесия</h2>
-          <button type="button" aria-label="Кнопка лайка" class="gallery__item-like-button"></button>
-        </article>
-        <article class="gallery__item">
-          <img src="./images/Elbrous.jpg" alt="Гора Эльбрус" class="gallery__item-image">
-          <h2 class="gallery__item-title">Гора Эльбрус</h2>
-          <button type="button" aria-label="Кнопка лайка" class="gallery__item-like-button"></button>
-        </article>
-        <article class="gallery__item">
-          <img src="./images/Dombai.jpg" alt="Горы Домбая" class="gallery__item-image">
-          <h2 class="gallery__item-title">Домбай</h2>
-          <button type="button" aria-label="Кнопка лайка" class="gallery__item-like-button"></button>
-        </article>
-        <article class="gallery__item">
-          <img src="./images/budapest-parliament.jpg" alt="Здание венгерского парламента" class="gallery__item-image">
-          <h2 class="gallery__item-title">Будапешт</h2>
-          <button type="button" aria-label="Кнопка лайка" class="gallery__item-like-button"></button>
-        </article>
-        <article class="gallery__item">
-          <img src="./images/Isfahan-Province-Iran.jpg" alt="Мечеть Джами в Исфахане" class="gallery__item-image">
-          <h2 class="gallery__item-title">Исфахан</h2>
-          <button type="button" aria-label="Кнопка лайка" class="gallery__item-like-button"></button>
-        </article>
-        <article class="gallery__item">
-          <img src="./images/Sultan-Park-Male-Maldives.jpg" alt="Парк Салтэн в Мале" class="gallery__item-image">
-          <h2 class="gallery__item-title">Мале</h2>
-          <button type="button" aria-label="Кнопка лайка" class="gallery__item-like-button"></button>
-        </article>
-      </section>
+      <section class="gallery" aria-label="Галерея фотокарточек"></section>
     </main>
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Борис Зашляпин</p>
     </footer>
-    <div class="popup">
+    <template id="gallery-template">
+      <article class="gallery__item">
+        <img src="" alt="" class="gallery__item-image">
+        <button type="button" aria-label="Кнопка удаления фотокарточки" class="gallery__item-delete-button"></button>
+        <h2 class="gallery__item-title"></h2>
+        <button type="button" aria-label="Кнопка лайка фотокарточки" class="gallery__item-like-button"></button>
+      </article>
+    </template>
+    <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form name="editProfileInfo" class="popup__form">
+        <form name="ProfileInfoEditor" class="popup__form popup__form_type_profile">
           <fieldset class="popup__form-profile">
-            <input name="profileName" type="text" value="" required class="popup__field">
-            <input name="profileJob" type="text" value="" required class="popup__field">
+            <input name="profileName" type="text" value="" required class="popup__field popup__field_type_profile-name">
+            <input name="profileJob" type="text" value="" required class="popup__field popup__field popup__field_type_profile-job">
           </fieldset>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
-        <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__close-button"></button>
+        <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button popup__closing-button_type_edit-profile"></button>
+      </div>
+    </div>
+    <div class="popup popup_type_add-photocard">
+      <div class="popup__container">
+        <h3 class="popup__title">Новое место</h3>
+        <form name="photocardAdding" class="popup__form popup__form_type_photocards">
+          <fieldset class="popup__form-profile">
+            <input name="photocardName" type="text" placeholder="Название" value="" required class="popup__field popup__field_type_photocard-name">
+            <input name="photocardLink" type="text" placeholder="Ссылка на картинку" value="" required class="popup__field popup__field_type_photocard-link">
+          </fieldset>
+          <button type="submit" class="popup__submit-button popup__submit-button_type_add">Создать</button>
+        </form>
+        <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button popup__closing-button_type_add-photocard"></button>
+      </div>
+    </div>
+    <div class="popup popup_type_image">
+      <div class="popup__container-image">
+        <img src="" alt="" class="popup__image">
+        <h3 class="popup__image-caption"></h3>
+        <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button popup__closing-button_type_image"></button>
       </div>
     </div>
     <script src="./scripts/index.js"></script>
