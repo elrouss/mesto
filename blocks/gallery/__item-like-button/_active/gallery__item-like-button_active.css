@@ -1,5 +1,5 @@
 .gallery__item-like-button_active {
-  background: url(../../../../images/icon-like_active.svg);
+  background: url(../../../../images/icon-like_active.svg) no-repeat;
   transition: opacity;
 }
 
