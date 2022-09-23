@@ -1,42 +1,138 @@
-'use strict';
-
-// МОДАЛЬНЫЕ ОКНА
-// Открытие и закрытие модальных окон
-const profileEditButton = document.querySelector('.profile__edit-button');
-const profileAddButton = document.querySelector('.profile__add-button');
-
-const popup = document.querySelectorAll('.popup');
-const popupEditingProfileInfo = document.querySelector('.popup_type_edit-profile');
-const closingButtonPopupEditProfileInfo = document.querySelector('.popup__closing-button_type_edit-profile');
-const popupAddingPhotocard = document.querySelector('.popup_type_add-photocard');
-const closingButtonPopupAddPhotocard = document.querySelector('.popup__closing-button_type_add-photocard');
-const popupPhotoZoom = document.querySelector('.popup_type_image');
-const closingButtonPopupPhotoZoom = document.querySelector('.popup__closing-button_type_image');
-
-const openPopup = popup => {
-  popup.classList.add('popup_opened');
-}
-
-const closePopup = popup => {
-  popup.classList.remove('popup_opened');
-}
-
+// ПЕРЕМЕННЫЕ
+// Данные профиля пользователя
 const profileName = document.querySelector('.profile__name');
 const profileJob = document.querySelector('.profile__job');
+
+// Шаблон фотокарточки
+const photoGallery = document.querySelector('.gallery');
+const photocardTemplate = document.querySelector('.gallery-template').content;
+
+// Модальные окна
+const popups = document.querySelectorAll('.popup');
+
+// Модальное окно с формой редактирования информации
+const popupEditingProfileInfo = document.querySelector('.popup_type_edit-profile');
+// Форма и поля
+const formEl = document.querySelector('.popup__form_type_profile');
 const nameInput = document.querySelector('.popup__field_type_profile-name');
 const jobInput = document.querySelector('.popup__field_type_profile-job');
 
-const transferProfileInfo = () => {
+// Модальное окно с формой добавления новой фотокарточки
+const popupAddingPhotocard = document.querySelector('.popup_type_add-photocard');
+// Поля формы
+const formAddingPhotocard = document.querySelector('.popup__form_type_photocards');
+const photocardName = document.querySelector('.popup__field_type_add-photocard-name');
+const photocardLink = document.querySelector('.popup__field_type_add-photocard-link');
+
+// Модальное окно с открытием фотографии карточки
+const popupPhotoZoom = document.querySelector('.popup_type_image');
+const popupImage = document.querySelector('.popup__image');
+const popupImageCaption = document.querySelector('.popup__image-caption');
+
+// Кнопки открытия модальных окон
+const profileEditButton = document.querySelector('.profile__edit-button');
+const profileAddButton = document.querySelector('.profile__add-button');
+
+// Кнопки закрытия модальных окон
+const buttonClosingPopupEditProfileInfo = document.querySelector('.popup__closing-button_type_edit-profile');
+const buttonClosingPopupAddPhotocard = document.querySelector('.popup__closing-button_type_add-photocard');
+const buttonClosingPopupPhotoZoom = document.querySelector('.popup__closing-button_type_image');
+
+
+// ФУНКЦИИ
+// Открытие и закрытие модальных окон
+const openPopup = popups => {
+  popups.classList.add('popup_opened');
+}
+
+const closePopup = popups => {
+  popups.classList.remove('popup_opened');
+}
+
+// Перенос данных пользователя в модальное окно редактирования информации
+const getProfileInfo = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
-profileEditButton.addEventListener('click', () => {
-  openPopup(popupEditingProfileInfo);
-  transferProfileInfo();
+// Редактирование информации профиля в модальном окне с сохранением значений
+const handleFormSubmit = evt => {
+  evt.preventDefault();
+
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+
+  closePopup(popupEditingProfileInfo);
+}
+
+// Работа с фотокарточками в разметке
+const renderPhotocard = card => {
+  // Клонирование карточки и ее элементов - заголовка, фотографии и альта
+  const photocardItem = photocardTemplate.cloneNode(true);
+
+  const photocardTitle = photocardItem.querySelector('.gallery__item-title');
+  const photocardImage = photocardItem.querySelector('.gallery__item-image');
+
+  photocardTitle.textContent = card.name;
+  photocardImage.src = card.link;
+  photocardImage.alt = `Название места на фотографии: ${card.name}`;
+
+  // Лайк карточки
+  const photocardLike = photocardItem.querySelector('.gallery__item-like-button');
+  photocardLike.addEventListener('click', (evt) => {
+    evt.target.classList.toggle('gallery__item-like-button_active');
+  })
+
+  // Удаление карточки
+  const photocardDeletion = photocardItem.querySelector('.gallery__item-delete-button');
+  photocardDeletion.addEventListener('click', (evt) => {
+    const currentPhotocard = evt.target.closest('.gallery__item');
+    currentPhotocard.remove();
+  })
+
+  // Zoom
+  const getPhotocardsItems = (evt, name) => {
+    popupImage.src = evt.target.src;
+    popupImage.alt = evt.target.alt;
+    popupImageCaption.textContent = name;
+  }
+
+  photocardImage.addEventListener('click', (evt) => {
+    openPopup(popupPhotoZoom);
+    getPhotocardsItems(evt, card.name);
+  })
+
+return photocardItem;
+}
+
+// Добавление новой карточки в разметку пользователем
+const handleNewPhotocard = evt => {
+  evt.preventDefault();
+
+  const photocardValue = {
+    name: photocardName.value,
+    link: photocardLink.value
+  }
+
+photoGallery.prepend(renderPhotocard(photocardValue));
+  evt.target.reset();
+  closePopup(popupAddingPhotocard);
+}
+
+
+// ОБРАБОТЧИКИ СОБЫТИЙ
+// Загрузка первоначального массива карточек
+initialPhotocards.forEach((element) => {
+  photoGallery.append(renderPhotocard(element));
 })
 
-closingButtonPopupEditProfileInfo.addEventListener('click', () => {
+// Открытие и закрытие модальных окон
+profileEditButton.addEventListener('click', () => {
+  openPopup(popupEditingProfileInfo);
+  getProfileInfo();
+})
+
+buttonClosingPopupEditProfileInfo.addEventListener('click', () => {
   closePopup(popupEditingProfileInfo);
 })
 
@@ -44,118 +140,16 @@ profileAddButton.addEventListener('click', () => {
   openPopup(popupAddingPhotocard);
 })
 
-closingButtonPopupAddPhotocard.addEventListener('click', () => {
+buttonClosingPopupAddPhotocard.addEventListener('click', () => {
   closePopup(popupAddingPhotocard);
 })
 
-// Редактирование информации профиля в модальном окне с сохранением значений
-// и автоматическим закрытием окна после успешной отправки данных
-const formEl = document.querySelector('.popup__form_type_profile');
-
-const formSubmitHandler = evt => {
-  evt.preventDefault();
-
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-
-  openPopup(popupEditingProfileInfo);
-  closePopup(popupEditingProfileInfo);
-}
-
-formEl.addEventListener('submit', formSubmitHandler);
-
-// ГАЛЕРЕЯ ФОТОКАРТОЧЕК
-// Загрузка фотокарточек на сайт из массива, лайки, удаление фотокарточек пользователем
-const photoGallery = document.querySelector('.gallery');
-const photocardTemplate = document.querySelector('#gallery-template').content;
-
-initialPhotocards.forEach((item) => {
-  const photocardElement = photocardTemplate.cloneNode(true);
-
-  photocardElement.querySelector('.gallery__item-title').textContent = item.name;
-  photocardElement.querySelector('.gallery__item-image').alt = item.name;
-  photocardElement.querySelector('.gallery__item-image').src = item.link;
-
-  // Лайки
-  photocardElement.querySelector('.gallery__item-like-button').addEventListener('click', (evt) => {
-    evt.target.classList.toggle('gallery__item-like-button_active');
-  })
-
-  // Удаление фотокарточки пользователем
-  photocardElement.querySelector('.gallery__item-delete-button').addEventListener('click', (evt) => {
-    const currentPhotocard = evt.target.closest('.gallery__item');
-    currentPhotocard.remove();
-  })
-
-  // Zoom фотографии
-  // Открытие и закрытие модального окна, трансляции фотографии и заголовка фотокарточки
-  const transferPhotocardsItems = evt => {
-
-    const popupImage = document.querySelector('.popup__image');
-    const popupImageCaption = document.querySelector('.popup__image-caption');
-
-    popupImage.src = evt.target.src;
-    popupImageCaption.textContent = evt.target.alt;
-  }
-
-  photocardElement.querySelector('.gallery__item-image').addEventListener('click', (evt) => {
-    openPopup(popupPhotoZoom);
-    transferPhotocardsItems(evt);
-  })
-
-  closingButtonPopupPhotoZoom.addEventListener('click', () => {
-    closePopup(popupPhotoZoom);
-  })
-
-  photoGallery.append(photocardElement);
+buttonClosingPopupPhotoZoom.addEventListener('click', () => {
+  closePopup(popupPhotoZoom);
 })
 
-// Добавление новых фотокарточек пользователем, лайки, Zoom, удаление фотокарточки пользователем
-const photocardName = document.querySelector('.popup__field_type_photocard-name'); // Инпут формы имени картинки в карточке
-const photocardLink = document.querySelector('.popup__field_type_photocard-link'); // Инпут формы ссылки картинки в карточке
-const addingPhotocardButton = document.querySelector('.popup__submit-button_type_add'); // Кнопка сабмита карточки
+// Редактирование данных в профиле
+formEl.addEventListener('submit', handleFormSubmit);
 
-const addPhotocard = (imageValue, titleValue) => {
-  const photocardElement = photocardTemplate.cloneNode(true);
-
-  photocardElement.querySelector('.gallery__item-image').src = titleValue;
-  photocardElement.querySelector('.gallery__item-title').textContent = imageValue;
-
-  photocardElement.querySelector('.gallery__item-like-button').addEventListener('click', (evt) => {
-  evt.target.classList.toggle('gallery__item-like-button_active');
-  })
-
-  photocardElement.querySelector('.gallery__item-delete-button').addEventListener('click', (evt) => {
-    const currentPhotocard = evt.target.closest('.gallery__item');
-    currentPhotocard.remove();
-  })
-
-  const transferPhotocardsItems = evt => {
-
-    const popupImage = document.querySelector('.popup__image');
-    const popupImageCaption = document.querySelector('.popup__image-caption');
-
-    popupImage.src = evt.target.src;
-    popupImageCaption.textContent = evt.target.alt;
-  }
-
-  photocardElement.querySelector('.gallery__item-image').addEventListener('click', (evt) => {
-    openPopup(popupPhotoZoom);
-    transferPhotocardsItems(evt);
-  })
-
-  closingButtonPopupPhotoZoom.addEventListener('click', () => {
-    closePopup(popupPhotoZoom);
-  })
-
-  photoGallery.prepend(photocardElement);
-}
-
-addingPhotocardButton.addEventListener('click', () => {
-  addPhotocard(photocardName.value, photocardLink.value);
-
-  photocardName.value = '';
-  photocardLink.value = '';
-
-  closePopup(popupAddingPhotocard);
-})
+// Добавление новой фотокарточки
+formAddingPhotocard.addEventListener('submit', handleNewPhotocard);
