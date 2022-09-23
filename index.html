@@ -29,7 +29,7 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Борис Зашляпин</p>
     </footer>
-    <template id="gallery-template">
+    <template class="gallery-template">
       <article class="gallery__item">
         <img src ="#" alt="" class="gallery__item-image">
         <button type="button" aria-label="Кнопка удаления фотокарточки" class="gallery__item-delete-button"></button>
@@ -55,8 +55,8 @@
         <h3 class="popup__title">Новое место</h3>
         <form name="photocardAdding" class="popup__form popup__form_type_photocards">
           <fieldset class="popup__form-profile">
-            <input name="photocardName" type="text" placeholder="Название" value="" required class="popup__field popup__field_type_photocard-name">
-            <input name="photocardLink" type="text" placeholder="Ссылка на картинку" value="" required class="popup__field popup__field_type_photocard-link">
+            <input name="photocardName" type="text" placeholder="Название" value="" required class="popup__field popup__field_type_add-photocard-name">
+            <input name="photocardLink" type="text" placeholder="Ссылка на картинку" value="" required class="popup__field popup__field_type_add-photocard-link">
           </fieldset>
           <button type="submit" class="popup__submit-button popup__submit-button_type_add">Создать</button>
         </form>
@@ -70,6 +70,7 @@
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button popup__closing-button_type_image"></button>
       </div>
     </div>
+    <script src="./scripts/initialPhotocards.js"></script>
     <script src="./scripts/index.js"></script>
   </body>
 </html>
