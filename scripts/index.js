@@ -66,7 +66,7 @@ const handleFormSubmit = evt => {
 }
 
 // Работа с фотокарточками в разметке
-const renderPhotocard = card => {
+const createPhotocard = card => {
   // Клонирование карточки и ее элементов - заголовка, фотографии и альта
   const photocardItem = photocardTemplate.cloneNode(true);
 
@@ -105,7 +105,7 @@ const renderPhotocard = card => {
 return photocardItem;
 }
 
-// Добавление новой карточки в разметку пользователем
+// Добавление новой карточки пользователем
 const handleNewPhotocard = evt => {
   evt.preventDefault();
 
@@ -114,7 +114,7 @@ const handleNewPhotocard = evt => {
     link: photocardLink.value
   }
 
-photoGallery.prepend(renderPhotocard(photocardValue));
+photoGallery.prepend(createPhotocard(photocardValue));
   evt.target.reset();
   closePopup(popupAddingPhotocard);
 }
@@ -123,7 +123,7 @@ photoGallery.prepend(renderPhotocard(photocardValue));
 // ОБРАБОТЧИКИ СОБЫТИЙ
 // Загрузка первоначального массива карточек
 initialPhotocards.forEach((element) => {
-  photoGallery.append(renderPhotocard(element));
+  photoGallery.append(createPhotocard(element));
 })
 
 // Открытие и закрытие модальных окон
