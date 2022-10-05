@@ -1,4 +1,4 @@
-.popup__form-profile {
+.popup__form-fieldset {
   margin: 0;
   padding: 0;
   border: none;
@@ -9,7 +9,7 @@
 }
 
 @media (max-width: 696px) {
-  .popup__form-profile {
+  .popup__form-fieldset {
     row-gap: 20px;
   }
 }

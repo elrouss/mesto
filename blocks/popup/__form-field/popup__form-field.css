@@ -1,4 +1,4 @@
-.popup__field {
+.popup__form-field {
   width: 358px;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
@@ -8,19 +8,12 @@
   box-sizing: border-box;
 }
 
-.popup__field:focus {
-  border-bottom: 1px solid rgba(0, 0, 0, 0);
-  outline: .8px solid #000;
-  border-radius: 1.2px;
-  box-shadow: 0 0 1.5px #000;
-}
-
-.popup__field::placeholder {
+.popup__form-field::placeholder {
   color: #c4c4c4;
 }
 
 @media (max-width: 696px) {
-  .popup__field {
+  .popup__form-field {
     width: 238px;
   }
 }
