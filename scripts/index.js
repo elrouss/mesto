@@ -9,20 +9,21 @@ const photocardTemplate = document.querySelector('.gallery-template').content;
 
 // Модальные окна
 const popups = document.querySelectorAll('.popup');
+const popupContainers = document.querySelector('.popup__container');
 
 // Модальное окно с формой редактирования информации
 const popupEditingProfileInfo = document.querySelector('.popup_type_edit-profile');
 // Форма и поля
 const formEl = document.querySelector('.popup__form_type_profile');
-const nameInput = document.querySelector('.popup__field_type_profile-name');
-const jobInput = document.querySelector('.popup__field_type_profile-job');
+const nameInput = document.querySelector('.popup__form-field_type_profile-name');
+const jobInput = document.querySelector('.popup__form-field_type_profile-job');
 
 // Модальное окно с формой добавления новой фотокарточки
 const popupAddingPhotocard = document.querySelector('.popup_type_add-photocard');
 // Поля формы
 const formAddingPhotocard = document.querySelector('.popup__form_type_photocards');
-const photocardName = document.querySelector('.popup__field_type_add-photocard-name');
-const photocardLink = document.querySelector('.popup__field_type_add-photocard-link');
+const photocardName = document.querySelector('.popup__form-field_type_add-photocard-name');
+const photocardLink = document.querySelector('.popup__form-field_type_add-photocard-link');
 
 // Модальное окно с открытием фотографии карточки
 const popupPhotoZoom = document.querySelector('.popup_type_image');
@@ -49,13 +50,28 @@ const closePopup = popups => {
   popups.classList.remove('popup_opened');
 }
 
+// Закрытие модальных окон кликом по оверлею
+const handleOverlay = evt => {
+  if (!popupContainers.contains(evt.target)) {
+    closePopup(evt.target);
+  }
+}
+
+// Закрытие модальных окон кликом по клавише "Escape"
+const handleEscape = evt => {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
 // Перенос данных пользователя в модальное окно редактирования информации
 const getProfileInfo = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
-// Редактирование информации профиля в модальном окне с сохранением значений
+// Редактирование информации профиля в модальном окне с сохранением значений, валидация
 const handleFormSubmit = evt => {
   evt.preventDefault();
 
@@ -105,7 +121,7 @@ const createPhotocard = card => {
 return photocardItem;
 }
 
-// Добавление новой карточки пользователем
+// Добавление новой карточки пользователем и деактивация кнопки submit
 const handleNewPhotocard = evt => {
   evt.preventDefault();
 
@@ -114,8 +130,13 @@ const handleNewPhotocard = evt => {
     link: photocardLink.value
   }
 
-photoGallery.prepend(createPhotocard(photocardValue));
+  const disabledButton = evt.currentTarget.querySelector('.popup__submit-button');
+  disabledButton.classList.add('popup__submit-button_disabled');
+  disabledButton.setAttribute('disabled', true);
+
+  photoGallery.prepend(createPhotocard(photocardValue));
   evt.target.reset();
+
   closePopup(popupAddingPhotocard);
 }
 
@@ -126,7 +147,7 @@ initialPhotocards.forEach((element) => {
   photoGallery.append(createPhotocard(element));
 })
 
-// Открытие и закрытие модальных окон
+// Открытие и закрытие модальных окон по кнопкам
 profileEditButton.addEventListener('click', () => {
   openPopup(popupEditingProfileInfo);
   getProfileInfo();
@@ -147,6 +168,12 @@ buttonClosingPopupAddPhotocard.addEventListener('click', () => {
 buttonClosingPopupPhotoZoom.addEventListener('click', () => {
   closePopup(popupPhotoZoom);
 })
+
+// Закрытие модальных окон по оверлею
+document.addEventListener('click', handleOverlay);
+
+// Закрытие модальных окон кликом по клавише "Escape"
+document.addEventListener('keydown', handleEscape);
 
 // Редактирование данных в профиле
 formEl.addEventListener('submit', handleFormSubmit);

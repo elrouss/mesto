@@ -1,0 +1,28 @@
+.popup__form-field {
+  width: 358px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding-bottom: 13px;
+  font-weight: 400;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.popup__form-field::placeholder {
+  color: #c4c4c4;
+}
+
+.popup__form-field:nth-child(3) {
+  margin-top: 35px;
+}
+
+@media (max-width: 696px) {
+  .popup__form-field {
+    width: 238px;
+    padding-bottom: 9px;
+  }
+  
+  .popup__form-field:nth-child(3) {
+    margin-top: 28px;
+  }
+}

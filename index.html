@@ -40,10 +40,12 @@
     <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form name="ProfileInfoEditor" class="popup__form popup__form_type_profile">
-          <fieldset class="popup__form-profile">
-            <input name="profileName" type="text" value="" required class="popup__field popup__field_type_profile-name">
-            <input name="profileJob" type="text" value="" required class="popup__field popup__field popup__field_type_profile-job">
+        <form name="profileInfoEditor" class="popup__form popup__form_type_profile" novalidate>
+          <fieldset class="popup__form-fieldset">
+            <input id="input-name" name="profileName" type="text" value="Имя" placeholder="Имя" minlength="2" maxlength="40" required class="popup__form-field popup__form-field_type_profile-name">
+            <span class="popup__error input-name-error"></span>
+            <input id="input-job" name="profileJob" type="text" value="О себе" placeholder="О себе" minlength="2" maxlength="200" required class="popup__form-field popup__form-field_type_profile-job">
+            <span class="popup__error input-job-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
@@ -53,12 +55,14 @@
     <div class="popup popup_type_add-photocard">
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>
-        <form name="photocardAdding" class="popup__form popup__form_type_photocards">
-          <fieldset class="popup__form-profile">
-            <input name="photocardName" type="text" placeholder="Название" value="" required class="popup__field popup__field_type_add-photocard-name">
-            <input name="photocardLink" type="text" placeholder="Ссылка на картинку" value="" required class="popup__field popup__field_type_add-photocard-link">
+        <form name="photocardAdding" class="popup__form popup__form_type_photocards" novalidate>
+          <fieldset class="popup__form-fieldset">
+            <input id="photocard-name" name="photocardName" type="text" placeholder="Название" value="" minlength="1" maxlength="30" required class="popup__form-field popup__form-field_type_add-photocard-name">
+            <span class="popup__error photocard-name-error"></span>
+            <input id="photocard-url" name="photocardLink" type="url" placeholder="Ссылка на картинку" value="" required class="popup__form-field popup__form-field_type_add-photocard-link">
+            <span class="popup__error photocard-url-error"></span>
           </fieldset>
-          <button type="submit" class="popup__submit-button popup__submit-button_type_add">Создать</button>
+          <button type="submit" class="popup__submit-button">Создать</button>
         </form>
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button popup__closing-button_type_add-photocard"></button>
       </div>
@@ -72,5 +76,6 @@
     </div>
     <script src="./scripts/initialPhotocards.js"></script>
     <script src="./scripts/index.js"></script>
+    <script src="./scripts/validate.js"></script>
   </body>
 </html>
