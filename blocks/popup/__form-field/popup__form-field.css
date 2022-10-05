@@ -19,5 +19,10 @@
 @media (max-width: 696px) {
   .popup__form-field {
     width: 238px;
+    padding-bottom: 9px;
+  }
+  
+  .popup__form-field:nth-child(3) {
+    margin-top: 28px;
   }
 }

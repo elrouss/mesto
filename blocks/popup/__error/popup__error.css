@@ -1,20 +1,29 @@
 .popup__error {
   display: none;
+  width: 358px;
   padding-top: 5px;
   font-weight: 400;
   font-size: 12px;
   line-height: calc(15 / 12 * 100%);
   color: #f00;
-  }
-
-.popup__error:nth-child(2) {
-  position: absolute;
-  top: 138px;
-  left: 36px;
-}
-
-.popup__error:nth-child(4) {
   position: absolute;
   top: 204px;
   left: 36px;
+}
+
+.popup__error:nth-child(2) {
+  top: 138px;
+}
+
+@media (max-width: 696px) {
+  .popup__error {
+    width: 238px;
+    font-size: 11px;
+    line-height: 104%;
+    left: 23px;
+  }
+
+  .popup__error:nth-child(2) {
+    top: 149px;
+  }
 }
