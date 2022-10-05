@@ -6,7 +6,3 @@
   line-height: calc(15 / 12 * 100%);
   color: #f00;
   }
-
-  .error:first-of-type {
-    padding-bottom: 13px;
-  }

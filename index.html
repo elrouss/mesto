@@ -43,9 +43,9 @@
         <form name="profileInfoEditor" class="popup__form popup__form_type_profile" novalidate>
           <fieldset class="popup__form-fieldset">
             <input id="input-name" name="profileName" type="text" value="Имя" placeholder="Имя" minlength="2" maxlength="40" required class="popup__form-field popup__form-field_type_profile-name">
-            <span class="popup__error input-name-error"></span>
+            <span class="popup__error input-name-error">Текст ошибки</span>
             <input id="input-job" name="profileJob" type="text" value="О себе" placeholder="О себе" minlength="2" maxlength="200" required class="popup__form-field popup__form-field_type_profile-job">
-            <span class="popup__error input-job-error"></span>
+            <span class="popup__error input-job-error">Текст ошибки</span>
           </fieldset>
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
@@ -58,9 +58,9 @@
         <form name="photocardAdding" class="popup__form popup__form_type_photocards" novalidate>
           <fieldset class="popup__form-fieldset">
             <input id="photocard-name" name="photocardName" type="text" placeholder="Название" value="" minlength="1" maxlength="30" required class="popup__form-field popup__form-field_type_add-photocard-name">
-            <span class="popup__error photocard-name-error"></span>
+            <span class="popup__error photocard-name-error">Заполните это поле</span>
             <input id="photocard-url" name="photocardLink" type="url" placeholder="Ссылка на картинку" value="" required class="popup__form-field popup__form-field_type_add-photocard-link">
-            <span class="popup__error photocard-url-error"></span>
+            <span class="popup__error photocard-url-error">Введите URL</span>
           </fieldset>
           <button type="submit" class="popup__submit-button">Создать</button>
         </form>

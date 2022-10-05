@@ -12,6 +12,10 @@
   color: #c4c4c4;
 }
 
+.popup__form-field:nth-child(3) {
+  padding-top: 7px;
+}
+
 @media (max-width: 696px) {
   .popup__form-field {
     width: 238px;
