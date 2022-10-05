@@ -13,7 +13,7 @@
 }
 
 .popup__form-field:nth-child(3) {
-  padding-top: 7px;
+  margin-top: 35px;
 }
 
 @media (max-width: 696px) {
