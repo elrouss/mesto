@@ -9,7 +9,6 @@ const photocardTemplate = document.querySelector('.gallery-template').content;
 
 // Модальные окна
 const popups = document.querySelectorAll('.popup');
-const popupContainers = document.querySelector('.popup__container');
 
 // Модальное окно с формой редактирования информации
 const popupEditingProfileInfo = document.querySelector('.popup_type_edit-profile');
@@ -34,31 +33,21 @@ const popupImageCaption = document.querySelector('.popup__image-caption');
 const profileEditButton = document.querySelector('.profile__edit-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 
-// Кнопки закрытия модальных окон
-const buttonClosingPopupEditProfileInfo = document.querySelector('.popup__closing-button_type_edit-profile');
-const buttonClosingPopupAddPhotocard = document.querySelector('.popup__closing-button_type_add-photocard');
-const buttonClosingPopupPhotoZoom = document.querySelector('.popup__closing-button_type_image');
-
 
 // ФУНКЦИИ
 // Открытие и закрытие модальных окон
-const openPopup = popups => {
-  popups.classList.add('popup_opened');
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', handleEscape);
 }
 
-const closePopup = popups => {
-  popups.classList.remove('popup_opened');
-}
-
-// Закрытие модальных окон кликом по оверлею
-const handleOverlay = evt => {
-  if (!popupContainers.contains(evt.target)) {
-    closePopup(evt.target);
-  }
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleEscape);
 }
 
 // Закрытие модальных окон кликом по клавише "Escape"
-const handleEscape = evt => {
+function handleEscape(evt) {
   if (evt.key === 'Escape') {
     const popupOpened = document.querySelector('.popup_opened');
     closePopup(popupOpened);
@@ -83,7 +72,7 @@ const handleFormSubmit = evt => {
 
 // Работа с фотокарточками в разметке
 const createPhotocard = card => {
-  // Клонирование карточки и ее элементов - заголовка, фотографии и альта
+  // Клонирование карточки и ее элементов: заголовка, фотографии и альта
   const photocardItem = photocardTemplate.cloneNode(true);
 
   const photocardTitle = photocardItem.querySelector('.gallery__item-title');
@@ -130,9 +119,8 @@ const handleNewPhotocard = evt => {
     link: photocardLink.value
   }
 
-  const disabledButton = evt.currentTarget.querySelector('.popup__submit-button');
-  disabledButton.classList.add('popup__submit-button_disabled');
-  disabledButton.setAttribute('disabled', true);
+  evt.submitter.classList.add('popup__submit-button_disabled');
+  evt.submitter.setAttribute('disabled', true);
 
   photoGallery.prepend(createPhotocard(photocardValue));
   evt.target.reset();
@@ -147,33 +135,24 @@ initialPhotocards.forEach((element) => {
   photoGallery.append(createPhotocard(element));
 })
 
-// Открытие и закрытие модальных окон по кнопкам
+// Открытие и закрытие модальных окон по кнопкам и оверлею
 profileEditButton.addEventListener('click', () => {
   openPopup(popupEditingProfileInfo);
   getProfileInfo();
-})
-
-buttonClosingPopupEditProfileInfo.addEventListener('click', () => {
-  closePopup(popupEditingProfileInfo);
 })
 
 profileAddButton.addEventListener('click', () => {
   openPopup(popupAddingPhotocard);
 })
 
-buttonClosingPopupAddPhotocard.addEventListener('click', () => {
-  closePopup(popupAddingPhotocard);
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')
+        || evt.target.classList.contains('popup__closing-button')) {
+          closePopup(popup);
+      }
+  })
 })
-
-buttonClosingPopupPhotoZoom.addEventListener('click', () => {
-  closePopup(popupPhotoZoom);
-})
-
-// Закрытие модальных окон по оверлею
-document.addEventListener('click', handleOverlay);
-
-// Закрытие модальных окон кликом по клавише "Escape"
-document.addEventListener('keydown', handleEscape);
 
 // Редактирование данных в профиле
 formEl.addEventListener('submit', handleFormSubmit);
