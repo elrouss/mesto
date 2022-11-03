@@ -84,4 +84,13 @@ export class FormValidator {
     })
     this._setEventListeners();
   }
+
+  // Публичный метод очистки ошибок и управления кнопкой сабмита
+  resetValidation() {
+    this._toggleButtonState();
+
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    })
+  }
 }

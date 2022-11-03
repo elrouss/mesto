@@ -28,9 +28,9 @@ const photocardName = document.querySelector('.popup__form-field_type_add-photoc
 const photocardLink = document.querySelector('.popup__form-field_type_add-photocard-link');
 
 // Модальное окно с открытием фотографии карточки
-const popupPhotoZoom = document.querySelector('.popup_type_image'); // Class
-const popupImage = document.querySelector('.popup__image'); // Class
-const popupImageCaption = document.querySelector('.popup__image-caption'); // Class
+const popupPhotoZoom = document.querySelector('.popup_type_image');
+const popupImage = document.querySelector('.popup__image');
+const popupImageCaption = document.querySelector('.popup__image-caption');
 
 // Кнопки открытия модальных окон
 const profileEditButton = document.querySelector('.profile__edit-button');
@@ -112,9 +112,18 @@ const handleFormSubmit = evt => {
   closePopup(popupEditingProfileInfo);
 }
 
+// Получение на вход данных карточки в попапе карточки
+const handleCardClick = (title, image, alt) => {
+  popupImageCaption.textContent = title;
+  popupImage.src = image;
+  popupImage.alt = alt;
+
+  openPopup(popupPhotoZoom);
+}
+
 // Функция создания фотокарточки из класса
 const createPhotocard = card => {
-  const photocard = new Card(card, '.gallery-template');
+  const photocard = new Card(card, '.gallery-template', handleCardClick);
   const photocardElement = photocard.generateCard();
 
   return photocardElement;
@@ -128,9 +137,6 @@ const handleNewPhotocard = evt => {
     name: photocardName.value,
     link: photocardLink.value
   }
-
-  evt.submitter.classList.add('popup__submit-button_disabled');
-  evt.submitter.setAttribute('disabled', true);
 
   photoGallery.prepend(createPhotocard(photocardValue));
   evt.target.reset();
@@ -157,10 +163,12 @@ initialPhotocards.forEach((card) => {
 profileEditButton.addEventListener('click', () => {
   openPopup(popupEditingProfileInfo);
   getProfileInfo();
+  validationPopupProfile.resetValidation();
 })
 
 profileAddButton.addEventListener('click', () => {
   openPopup(popupAddingPhotocard);
+  validationPopupAddingPhotocard.resetValidation();
 })
 
 popups.forEach((popup) => {
@@ -177,6 +185,3 @@ formEditingProfileInfo.addEventListener('submit', handleFormSubmit);
 
 // Добавление новой фотокарточки
 formAddingPhotocard.addEventListener('submit', handleNewPhotocard);
-
-
-export { popupPhotoZoom, popupImage, popupImageCaption, openPopup };
