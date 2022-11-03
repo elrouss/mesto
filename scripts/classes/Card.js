@@ -1,13 +1,11 @@
-import { popupPhotoZoom, popupImage, popupImageCaption, openPopup  } from '../index.js';
-
-
 // КЛАСС ФОТОКАРТОЧКИ
 export class Card {
-  constructor(data, templateSelector) {
+  constructor(data, templateSelector, handleCardClick) {
     this._title = data.name;
     this._alt = `Название места на фотографии: ${this._title}`;
     this._image = data.link;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   // Метод получения шаблона разметки из HTML
@@ -31,20 +29,6 @@ export class Card {
     this._element.remove();
   }
 
-  // Метод переноса данных из карточки в попап карточки
-  _getCardsItems = () => {
-    popupImage.src = this._image;
-    popupImage.alt = this._alt;
-    popupImageCaption.textContent = this._title;
-  }
-
-  // Метод открытия попапа с картинкой
-  _openPopupImage() {
-    popupImage.src = '';
-    openPopup(popupPhotoZoom);
-    this._getCardsItems();
-  }
-
   // Обработчики событий
   _setEventListeners() {
     // Лайки
@@ -59,10 +43,10 @@ export class Card {
       this._deleteCard();
     })
 
-    // Открытие попапа кликом по картинке
+    // Получение на вход данных карточки
     this._cardImage = this._element.querySelector('.gallery__item-image');
     this._cardImage.addEventListener('click', () => {
-      this._openPopupImage();
+      this._handleCardClick(this._title, this._image, this._alt);
     })
   }
 
