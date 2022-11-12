@@ -17,7 +17,7 @@ export const nameInput = document.querySelector('.popup__form-field_type_profile
 export const jobInput = document.querySelector('.popup__form-field_type_profile-job');
 
 // Модальное окно с формой добавления новой фотокарточки
-export const popupAddingPhotocard = document.querySelector('.popup_type_add-photocard');
+// export const popupAddingPhotocard = document.querySelector('.popup_type_add-photocard');
 // Поля формы
 export const formAddingPhotocard = document.querySelector('.popup__form_type_photocards');
 export const photocardName = document.querySelector('.popup__form-field_type_add-photocard-name');

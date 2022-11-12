@@ -7,7 +7,7 @@ import {
   formEditingProfileInfo,
   nameInput,
   jobInput,
-  popupAddingPhotocard,
+  // popupAddingPhotocard,
   formAddingPhotocard,
   photocardName,
   photocardLink,
@@ -22,49 +22,20 @@ import {
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
-
-const defaultCardList = new Section({
-  data: initialPhotocards,
-  renderer: (item) => {
-    const photocard = new Card(item, '.gallery-template');
-    const photocardElement = photocard.generateCard();
-
-    defaultCardList.addItem(photocardElement);
-    },
-  },
-  photoGallery
-)
-
-defaultCardList.renderItems();
-
+import Popup from '../components/Popup.js';
 import FormValidator from '../components/FormValidator.js';
 
+// ВЫЗОВЫ КЛАССОВ
+// Модальные окна
+const popupAddingPhotocard = new Popup('.popup_type_add-photocard');
+popupAddingPhotocard.setEventListeners();
 
 // ФУНКЦИИ
-// Открытие и закрытие модальных окон
-function openPopup(popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', handleEscape);
-}
-
-function closePopup(popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleEscape);
-}
-
-// Закрытие модальных окон кликом по клавише "Escape"
-function handleEscape(evt) {
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
-
 // Перенос данных пользователя в модальное окно редактирования информации
-const getProfileInfo = () => {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-}
+// const getProfileInfo = () => {
+//   nameInput.value = profileName.textContent;
+//   jobInput.value = profileJob.textContent;
+// }
 
 // Редактирование информации профиля в модальном окне с сохранением значений
 const handleFormSubmit = evt => {
@@ -76,37 +47,51 @@ const handleFormSubmit = evt => {
   closePopup(popupEditingProfileInfo);
 }
 
-// Получение на вход данных карточки в попапе карточки
-// const handleCardClick = (title, image, alt) => {
-//   popupImageCaption.textContent = title;
-//   popupImage.src = image;
-//   popupImage.alt = alt;
+// Получение готовой разметки фотокарточки и вставка ее в DOM
+const photocardsList = new Section({
+  data: initialPhotocards,
+  renderer: (item) => {
+    const photocard = new Card(item, '.gallery-template');
+    const photocardElement = photocard.generateCard();
 
-//   openPopup(popupPhotoZoom);
-// }
+    photocardsList.addItem(photocardElement);
+    },
+  },
+  photoGallery
+)
+photocardsList.renderItems();
+
+// Получение на вход данных карточки в попапе карточки
+const handleCardClick = (title, image, alt) => {
+  popupImageCaption.textContent = title;
+  popupImage.src = image;
+  popupImage.alt = alt;
+
+  // openPopup(popupPhotoZoom);
+}
 
 // Функция создания фотокарточки из класса
-// const createPhotocard = card => {
-//   const photocard = new Card(card, '.gallery-template', handleCardClick);
-//   const photocardElement = photocard.generateCard();
+const createPhotocard = card => {
+  const photocard = new Card(card, '.gallery-template', handleCardClick);
+  const photocardElement = photocard.generateCard();
 
-//   return photocardElement;
-// }
+  return photocardElement;
+}
 
 // Добавление новой фотокарточки пользователем и деактивация кнопки submit
-// const handleNewPhotocard = evt => {
-//   evt.preventDefault();
+const handleNewPhotocard = evt => {
+  evt.preventDefault();
 
-//   const photocardValue = {
-//     name: photocardName.value,
-//     link: photocardLink.value
-//   }
+  const photocardValue = {
+    name: photocardName.value,
+    link: photocardLink.value
+  }
 
-//   photoGallery.prepend(createPhotocard(photocardValue));
-//   evt.target.reset();
+  photoGallery.prepend(createPhotocard(photocardValue));
+  evt.target.reset();
 
-//   closePopup(popupAddingPhotocard);
-// }
+  // closePopup(popupAddingPhotocard);
+}
 
 // Создание объекта с классом валидации для попапа редактирования профиля
 const validationPopupProfile = new FormValidator(validationSettings, formEditingProfileInfo);
@@ -118,30 +103,16 @@ validationPopupAddingPhotocard.enableValidation();
 validationPopupAddingPhotocard.disableSubmitButton();
 
 // ОБРАБОТЧИКИ СОБЫТИЙ
-// Загрузка массива карточек
-// initialPhotocards.forEach((card) => {
-//   photoGallery.append(createPhotocard(card));
+// Открытие и закрытие модальных окон по кнопкам и оверлею
+// profileEditButton.addEventListener('click', () => {
+//   // openPopup(popupEditingProfileInfo);
+//   getProfileInfo();
+//   validationPopupProfile.resetValidation();
 // })
 
-// Открытие и закрытие модальных окон по кнопкам и оверлею
-profileEditButton.addEventListener('click', () => {
-  openPopup(popupEditingProfileInfo);
-  getProfileInfo();
-  validationPopupProfile.resetValidation();
-})
-
 profileAddButton.addEventListener('click', () => {
-  openPopup(popupAddingPhotocard);
+  popupAddingPhotocard.open();
   validationPopupAddingPhotocard.resetValidation();
-})
-
-popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')
-        || evt.target.classList.contains('popup__closing-button')) {
-          closePopup(popup);
-      }
-  })
 })
 
 // Редактирование данных в профиле
