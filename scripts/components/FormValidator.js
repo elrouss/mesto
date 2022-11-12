@@ -1,5 +1,5 @@
 // КЛАСС ВАЛИДАЦИИ ФОРМЫ (это валидация только одной формы; в ПР6 функция enableValidation() отвечала за валидацию всех форм)
-export class FormValidator {
+export default class FormValidator {
   constructor(settings, formElement) {
     // Создание ключей объекта
     this._settings = settings;
@@ -33,9 +33,9 @@ export class FormValidator {
 
   // Методы проверки валидности полей формы
   _isInputValid(inputElement) {
-    !inputElement.validity.valid ?
-      this._showInputError(inputElement, inputElement.validationMessage) :
-        this._hideInputError(inputElement);
+    !inputElement.validity.valid
+    ? this._showInputError(inputElement, inputElement.validationMessage)
+    : this._hideInputError(inputElement);
   }
 
   _hasInvalidInput() {
