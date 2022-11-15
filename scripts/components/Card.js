@@ -1,9 +1,9 @@
 // КЛАСС ФОТОКАРТОЧКИ
-export class Card {
-  constructor(data, templateSelector, handleCardClick) {
-    this._title = data.name;
+export default class Card {
+  constructor({ name, link }, templateSelector, handleCardClick) {
+    this._title = name;
     this._alt = `Название места на фотографии: ${this._title}`;
-    this._image = data.link;
+    this._image = link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
   }
