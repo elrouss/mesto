@@ -7,15 +7,14 @@
     <meta name="description" content="Сайт посвящен Жаку-Иву Кусто (1910-1997), выдающемуся французскому исследователю Мирового океана, фотографу, режиссеру, изобретателю, автору множества книг и фильмов.">
     <meta name="author" content="Борис Зашляпин">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
   </head>
   <body class="page">
     <header class="header">
-      <img src="./images/header__logo_theme_light.svg" alt="Логотип российского сайта Mesto" class="header__logo">
+      <img src="<%=require('./images/header__logo_theme_light.svg')%>" alt="Логотип российского сайта Mesto" class="header__logo">
     </header>
     <main class="content">
       <section class="profile">
-        <img src="./images/cousteau-avatar.jpg" alt="Аватар с фотографией Жака-Ива Кусто" class="profile__avatar">
+        <img src="<%=require('./images/cousteau-avatar.jpg')%>" alt="Аватар с фотографией Жака-Ива Кусто" class="profile__avatar">
           <div class="profile__info">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
             <p class="profile__job">Исследователь океана</p>
@@ -30,7 +29,7 @@
     </footer>
     <template class="gallery-template">
       <article class="gallery__item">
-        <img src ="#" alt="" class="gallery__item-image">
+        <img src="#" alt="" class="gallery__item-image">
         <button type="button" aria-label="Кнопка удаления фотокарточки" class="gallery__item-delete-button"></button>
         <h2 class="gallery__item-title"></h2>
         <button type="button" aria-label="Кнопка лайка фотокарточки" class="gallery__item-like-button"></button>
@@ -73,6 +72,5 @@
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
       </div>
     </div>
-    <script type="module" src="./scripts/pages/index.js"></script>
   </body>
 </html>
