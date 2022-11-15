@@ -6,18 +6,15 @@ export const profileJob = document.querySelector('.profile__job');
 // Контейнер для добавления фотокарточек
 export const photoGallery = document.querySelector('.gallery');
 
-// Модальные окна
-export const popups = document.querySelectorAll('.popup');
-
 // Модальное окно с формой редактирования информации
-export const popupEditingProfileInfo = document.querySelector('.popup_type_edit-profile');
+export const popupTypeEditingProfileInfo = document.querySelector('.popup_type_edit-profile');
 // Форма и поля
 export const formEditingProfileInfo = document.querySelector('.popup__form_type_profile');
 export const nameInput = document.querySelector('.popup__form-field_type_profile-name');
 export const jobInput = document.querySelector('.popup__form-field_type_profile-job');
 
 // Модальное окно с формой добавления новой фотокарточки
-// export const popupAddingPhotocard = document.querySelector('.popup_type_add-photocard');
+export const popupTypeAddingPhotocard = document.querySelector('.popup_type_add-photocard');
 // Поля формы
 export const formAddingPhotocard = document.querySelector('.popup__form_type_photocards');
 export const photocardName = document.querySelector('.popup__form-field_type_add-photocard-name');
@@ -25,8 +22,6 @@ export const photocardLink = document.querySelector('.popup__form-field_type_add
 
 // Модальное окно с открытием фотографии карточки
 export const popupPhotoZoom = document.querySelector('.popup_type_image');
-export const popupImage = document.querySelector('.popup__image');
-export const popupImageCaption = document.querySelector('.popup__image-caption');
 
 // Кнопки открытия модальных окон
 export const profileEditButton = document.querySelector('.profile__edit-button');

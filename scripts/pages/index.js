@@ -2,18 +2,15 @@ import {
   profileName,
   profileJob,
   photoGallery,
-  popups,
-  popupEditingProfileInfo,
+  popupTypeEditingProfileInfo,
   formEditingProfileInfo,
   nameInput,
   jobInput,
-  // popupAddingPhotocard,
+  popupTypeAddingPhotocard,
   formAddingPhotocard,
   photocardName,
   photocardLink,
   popupPhotoZoom,
-  popupImage,
-  popupImageCaption,
   profileEditButton,
   profileAddButton,
   initialPhotocards,
@@ -22,55 +19,23 @@ import {
 
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
-import Popup from '../components/Popup.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
-// ВЫЗОВЫ КЛАССОВ
-// Модальные окна
-const popupAddingPhotocard = new Popup('.popup_type_add-photocard');
-popupAddingPhotocard.setEventListeners();
+// КЛАССЫ
+// ФОТОКАРТОЧКИ
+// Попап с фотографией карточки
+const popupPhotocardImage = new PopupWithImage(popupPhotoZoom);
+popupPhotocardImage.setEventListeners(); // слушатели на закрытие попапа
 
-// ФУНКЦИИ
-// Перенос данных пользователя в модальное окно редактирования информации
-// const getProfileInfo = () => {
-//   nameInput.value = profileName.textContent;
-//   jobInput.value = profileJob.textContent;
-// }
-
-// Редактирование информации профиля в модальном окне с сохранением значений
-const handleFormSubmit = evt => {
-  evt.preventDefault();
-
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-
-  closePopup(popupEditingProfileInfo);
+// Функция получения на вход данных карточки в попапе карточки
+const handleCardClick = (name, link, alt) => {
+  popupPhotocardImage.open(name, link, alt);
 }
 
-// Получение готовой разметки фотокарточки и вставка ее в DOM
-const photocardsList = new Section({
-  data: initialPhotocards,
-  renderer: (item) => {
-    const photocard = new Card(item, '.gallery-template');
-    const photocardElement = photocard.generateCard();
-
-    photocardsList.addItem(photocardElement);
-    },
-  },
-  photoGallery
-)
-photocardsList.renderItems();
-
-// Получение на вход данных карточки в попапе карточки
-const handleCardClick = (title, image, alt) => {
-  popupImageCaption.textContent = title;
-  popupImage.src = image;
-  popupImage.alt = alt;
-
-  // openPopup(popupPhotoZoom);
-}
-
-// Функция создания фотокарточки из класса
+// Функция отрисовки фотокарточек
 const createPhotocard = card => {
   const photocard = new Card(card, '.gallery-template', handleCardClick);
   const photocardElement = photocard.generateCard();
@@ -78,45 +43,62 @@ const createPhotocard = card => {
   return photocardElement;
 }
 
-// Добавление новой фотокарточки пользователем и деактивация кнопки submit
-const handleNewPhotocard = evt => {
-  evt.preventDefault();
+// Загрузка галереи фотокарточек на страницу
+const photocardsList = new Section({
+  data: initialPhotocards,
+  renderer: (item) => {
+    photocardsList.addItem(createPhotocard(item));
+    },
+  },
+  photoGallery
+)
+photocardsList.renderItems();
 
+
+// Попап с добавлением пользователем новых фотокарточек
+const submitAddingPhotocardForm = () => {
   const photocardValue = {
     name: photocardName.value,
     link: photocardLink.value
   }
 
-  photoGallery.prepend(createPhotocard(photocardValue));
-  evt.target.reset();
-
-  // closePopup(popupAddingPhotocard);
+  photocardsList.addItem(createPhotocard(photocardValue));
+  popupAddingPhotocard.close(); // закрытие попапа
 }
 
-// Создание объекта с классом валидации для попапа редактирования профиля
-const validationPopupProfile = new FormValidator(validationSettings, formEditingProfileInfo);
-validationPopupProfile.enableValidation();
+const popupAddingPhotocard = new PopupWithForm(popupTypeAddingPhotocard, submitAddingPhotocardForm);
+popupAddingPhotocard.setEventListeners(); // слушатели на закрытие попапа
 
-// Создание объекта с классом валидации для попапа добавления фотокарточки
+
+// Открытие попапа
+profileAddButton.addEventListener('click', () => {
+  popupAddingPhotocard.open(); // открытие попапа
+  validationPopupAddingPhotocard.resetValidation(); // очистка полей валидации
+})
+
+// Валидация попапа добавления фотокарточки
 const validationPopupAddingPhotocard = new FormValidator(validationSettings, formAddingPhotocard);
 validationPopupAddingPhotocard.enableValidation();
 validationPopupAddingPhotocard.disableSubmitButton();
 
-// ОБРАБОТЧИКИ СОБЫТИЙ
-// Открытие и закрытие модальных окон по кнопкам и оверлею
-// profileEditButton.addEventListener('click', () => {
-//   // openPopup(popupEditingProfileInfo);
-//   getProfileInfo();
-//   validationPopupProfile.resetValidation();
-// })
 
-profileAddButton.addEventListener('click', () => {
-  popupAddingPhotocard.open();
-  validationPopupAddingPhotocard.resetValidation();
+// РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
+const editingUserInfo = new UserInfo(profileName, profileJob, nameInput, jobInput);
+
+// Сабмит формы редактирования информации о пользователе
+const submitEditingUserInfoForm = () => {
+  editingUserInfo.setUserInfo(); // изменение информации пользователя на странице при сабмите формы
+  popupEditingUserInfoForm.close(); // закрытие попапа после успешного сабмита
+}
+
+const popupEditingUserInfoForm = new PopupWithForm(popupTypeEditingProfileInfo, submitEditingUserInfoForm);
+popupEditingUserInfoForm.setEventListeners(); // навешивание слушателей на закрытие
+
+const validationPopupProfile = new FormValidator(validationSettings, formEditingProfileInfo);
+validationPopupProfile.enableValidation(); // включение валидации полей попапа
+
+profileEditButton.addEventListener('click', () => {
+  popupEditingUserInfoForm.open(); // открытие попапа
+  editingUserInfo.getUserInfo(); // получение значений со страницы
+  validationPopupProfile.resetValidation(); // очистка полей валидации
 })
-
-// Редактирование данных в профиле
-formEditingProfileInfo.addEventListener('submit', handleFormSubmit);
-
-// Добавление новой фотокарточки
-formAddingPhotocard.addEventListener('submit', handleNewPhotocard);

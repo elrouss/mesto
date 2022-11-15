@@ -62,9 +62,9 @@ export default class FormValidator {
 
   // Метод переключения кнопки
   _toggleButtonState() {
-    this._hasInvalidInput() ?
-      this.disableSubmitButton() :
-        this._enableSubmitButton();
+    this._hasInvalidInput()
+    ? this.disableSubmitButton()
+    : this._enableSubmitButton();
   }
 
   // Обработчики событий

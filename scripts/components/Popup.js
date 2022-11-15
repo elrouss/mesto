@@ -1,7 +1,6 @@
-// Класс открытия и закрытия попапов
 export default class Popup {
-  constructor(popupSelector) {
-    this._popup = document.querySelector(popupSelector); // Селектор попапа
+  constructor(popupElement) {
+    this._popup = popupElement; // Селектор попапа
   }
 
   // Метод открытия попапа
@@ -16,8 +15,8 @@ export default class Popup {
     document.removeEventListener('keydown', this._handleEscClose);
   }
 
-  // Метод закрытия попапа клавишей "Escape"
-  _handleEscClose(evt) {
+  // Метод закрытия попапа клавишей "Escape" (чтобы не потерять контекст, переделано на стрелочную функцию)
+  _handleEscClose = evt => {
     if (evt.key === 'Escape') this.close();
   }
 

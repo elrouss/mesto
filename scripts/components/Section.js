@@ -8,12 +8,12 @@ export default class Section {
 
   // Метод приема DOM-элемента и добавления его в контейнер
   addItem(element) {
-    this._container.append(element);
+    this._container.prepend(element);
   }
 
   // Метод отрисовки всех элементов, которую возвращает Card
   renderItems() {
-    this._initialArray.forEach((item) => {
+    this._initialArray.reverse().forEach((item) => {
       this._renderer(item);
     })
   }
