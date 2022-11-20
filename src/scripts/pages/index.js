@@ -1,8 +1,6 @@
 import '../../pages/index.css';
 
 import {
-  profileName,
-  profileJob,
   photoGallery,
   popupTypeEditingProfileInfo,
   formEditingProfileInfo,
@@ -10,8 +8,6 @@ import {
   jobInput,
   popupTypeAddingPhotocard,
   formAddingPhotocard,
-  photocardName,
-  photocardLink,
   popupPhotoZoom,
   profileEditButton,
   profileAddButton,
@@ -57,11 +53,11 @@ const photocardsList = new Section({
 photocardsList.renderItems();
 
 
-// Попап с добавлением пользователем новых фотокарточек
-const submitAddingPhotocardForm = () => {
+// Попап с добавлением пользователем новых фотокарточек (в data собираются значения инпутов (name))
+const submitAddingPhotocardForm = data => {
   const photocardValue = {
-    name: photocardName.value,
-    link: photocardLink.value
+    name: data.photocardName,
+    link: data.photocardLink
   }
 
   photocardsList.addItem(createPhotocard(photocardValue));
@@ -85,11 +81,11 @@ validationPopupAddingPhotocard.disableSubmitButton();
 
 
 // РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
-const editingUserInfo = new UserInfo(profileName, profileJob, nameInput, jobInput);
+const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job' });
 
 // Сабмит формы редактирования информации о пользователе
-const submitEditingUserInfoForm = () => {
-  editingUserInfo.setUserInfo(); // изменение информации пользователя на странице при сабмите формы
+const submitEditingUserInfoForm = data => {
+  editingUserInfo.setUserInfo(data.profileName, data.profileJob); // изменение информации пользователя на странице при сабмите формы
   popupEditingUserInfoForm.close(); // закрытие попапа после успешного сабмита
 }
 
@@ -101,6 +97,11 @@ validationPopupProfile.enableValidation(); // включение валидац�
 
 profileEditButton.addEventListener('click', () => {
   popupEditingUserInfoForm.open(); // открытие попапа
-  editingUserInfo.getUserInfo(); // получение значений со страницы
+
+  // Получение значений со страницы
+  const input = editingUserInfo.getUserInfo();
+  nameInput.value = input.profileName;
+  jobInput.value = input.profileJob;
+
   validationPopupProfile.resetValidation(); // очистка полей валидации
 })

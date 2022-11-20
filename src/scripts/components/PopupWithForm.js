@@ -1,11 +1,10 @@
-import { formAddingPhotocard } from "../utils/constants.js"
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
   constructor(popupSelector, submit) {
     super(popupSelector)
     this._submitForm = submit;
-    this._popupForm = formAddingPhotocard;
+    this._popupForm = this._popup.querySelector('.popup__form');
     this._popupFormInputs = Array.from(this._popup.querySelectorAll('.popup__form-field'));
   }
 
@@ -21,7 +20,7 @@ export default class PopupWithForm extends Popup {
   // Метод сбрасывания формы при закрытии попапа
   close() {
     super.close();
-    this._popupForm.reset(); // метод определяется для формы (NB! Для модального окна не работает)
+    this._popupForm.reset(); // метод определяется для формы
   }
 
   // Метод установки обработчиков событий (добавление обработчиков клика иконке закрытия и сабмиту формы)

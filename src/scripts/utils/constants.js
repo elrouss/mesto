@@ -1,8 +1,4 @@
 // ПЕРЕМЕННЫЕ
-// Данные профиля пользователя
-export const profileName = document.querySelector('.profile__name');
-export const profileJob = document.querySelector('.profile__job');
-
 // Контейнер для добавления фотокарточек
 export const photoGallery = document.querySelector('.gallery');
 
@@ -17,8 +13,6 @@ export const jobInput = document.querySelector('.popup__form-field_type_profile-
 export const popupTypeAddingPhotocard = document.querySelector('.popup_type_add-photocard');
 // Поля формы
 export const formAddingPhotocard = document.querySelector('.popup__form_type_photocards');
-export const photocardName = document.querySelector('.popup__form-field_type_add-photocard-name');
-export const photocardLink = document.querySelector('.popup__form-field_type_add-photocard-link');
 
 // Модальное окно с открытием фотографии карточки
 export const popupPhotoZoom = document.querySelector('.popup_type_image');
