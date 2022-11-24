@@ -1,3 +1,7 @@
+<div align="center">
+  <img src="https://i.ibb.co/1GjRv8j/2022-11-24-22-51-44.png" alt="2022-11-21-03-21-48" border="0" width="400">
+</div>
+
 # Проект: "Место"
 Благодарю за проявленный интерес к [проекту](https://elrouss.github.io/mesto/).
 ## Описание проекта
