@@ -1,7 +1,6 @@
 // КЛАСС ПОЛУЧЕНИЯ ГОТОВОЙ РАЗМЕТКИ И ВСТАВКИ ЕЕ В DOM
 export default class Section {
-  constructor({ data, renderer }, containerElement) {
-    this._initialArray = data; // Массив с данными карточек
+  constructor({ renderer }, containerElement) {
     this._renderer = renderer; // Отрисовка
     this._container = containerElement; // Контейнер для вставки элементов разметки
   }
@@ -12,8 +11,8 @@ export default class Section {
   }
 
   // Метод отрисовки всех элементов, которую возвращает Card
-  renderItems() {
-    this._initialArray.reverse().forEach((item) => {
+  renderItems(items) {
+    items.forEach((item) => {
       this._renderer(item);
     })
   }

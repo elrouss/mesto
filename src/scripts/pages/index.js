@@ -11,16 +11,17 @@ import {
   popupPhotoZoom,
   profileEditButton,
   profileAddButton,
-  initialPhotocards,
   validationSettings
 } from '../utils/constants.js';
 
+import Api from '../components/Api';
 import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
+
 
 // КЛАССЫ
 // ФОТОКАРТОЧКИ
@@ -43,15 +44,12 @@ const createPhotocard = card => {
 
 // Загрузка галереи фотокарточек на страницу
 const photocardsList = new Section({
-  data: initialPhotocards,
   renderer: (item) => {
     photocardsList.addItem(createPhotocard(item));
     },
   },
   photoGallery
 )
-photocardsList.renderItems();
-
 
 // Попап с добавлением пользователем новых фотокарточек (в data собираются значения инпутов (name))
 const submitAddingPhotocardForm = data => {
@@ -81,7 +79,7 @@ validationPopupAddingPhotocard.disableSubmitButton();
 
 
 // РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
-const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job' });
+const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job', profileAvatar: '.profile__avatar' });
 
 // Сабмит формы редактирования информации о пользователе
 const submitEditingUserInfoForm = data => {
@@ -105,3 +103,37 @@ profileEditButton.addEventListener('click', () => {
 
   validationPopupProfile.resetValidation(); // очистка полей валидации
 })
+
+// API
+// Информация о пользователе
+const apiUserInfo = new Api({
+  url: 'https://nomoreparties.co/v1/cohort-54/users/me',
+  headers: {authorization: 'ab13029f-8c56-4dec-b26e-24c2c3894c0c',
+    'Content-type': 'application/json'}
+})
+
+// Информация о пользователе
+apiUserInfo.getUserInfo()
+  .then((result) => {
+    editingUserInfo.setUserInfo(result.name, result.about, result.avatar);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+
+// Фотокарточки
+const apiInitialPhotocards = new Api({
+  url: 'https://mesto.nomoreparties.co/v1/cohort-54/cards',
+  headers: {authorization: 'ab13029f-8c56-4dec-b26e-24c2c3894c0c',
+    'Content-type': 'application/json'}
+})
+
+// Загрузка галереи на страницу
+apiInitialPhotocards.getPhotocards()
+  .then((result) => {
+    photocardsList.renderItems(result);
+  })
+  .catch((error) => {
+    console.log(error);
+  })
+  console.log(apiInitialPhotocards)
