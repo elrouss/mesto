@@ -81,10 +81,18 @@ validationPopupAddingPhotocard.disableSubmitButton();
 // РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
 const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job', profileAvatar: '.profile__avatar' });
 
-// Сабмит формы редактирования информации о пользователе
+// Сабмит формы редактирования информации о пользователе (данные собираются из полей формы)
 const submitEditingUserInfoForm = data => {
-  editingUserInfo.setUserInfo(data.profileName, data.profileJob); // изменение информации пользователя на странице при сабмите формы
-  popupEditingUserInfoForm.close(); // закрытие попапа после успешного сабмита
+  // popupEditingUserInfoForm.renderLoading(true);
+
+  api.editUserInfo(data.profileName, data.profileJob) // изменение информации пользователя на странице при сабмите формы
+  .then((user) => {
+    editingUserInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
+    popupEditingUserInfoForm.close(); // закрытие попапа после успешного сабмита
+  })
+  .catch((error) => {
+    console.log(error);
+  })
 }
 
 const popupEditingUserInfoForm = new PopupWithForm(popupTypeEditingProfileInfo, submitEditingUserInfoForm);
@@ -105,35 +113,29 @@ profileEditButton.addEventListener('click', () => {
 })
 
 // API
-// Информация о пользователе
-const apiUserInfo = new Api({
-  url: 'https://nomoreparties.co/v1/cohort-54/users/me',
+// Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
+const api = new Api({
+  url: 'https://nomoreparties.co/v1/cohort-54/',
   headers: {authorization: 'ab13029f-8c56-4dec-b26e-24c2c3894c0c',
     'Content-type': 'application/json'}
 })
 
-// Информация о пользователе
-apiUserInfo.getUserInfo()
+// Получение информации о пользователе с сервера
+api.getUserInfo()
   .then((result) => {
-    editingUserInfo.setUserInfo(result.name, result.about, result.avatar);
+    editingUserInfo.setUserInfo(result.name, result.about, result.avatar); // "name" и "about" соответствуют ключам в Api
   })
   .catch((error) => {
     console.log(error);
-  })
-
-// Фотокарточки
-const apiInitialPhotocards = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-54/cards',
-  headers: {authorization: 'ab13029f-8c56-4dec-b26e-24c2c3894c0c',
-    'Content-type': 'application/json'}
-})
+  }
+)
 
 // Загрузка галереи на страницу
-apiInitialPhotocards.getPhotocards()
+api.getPhotocards()
   .then((result) => {
     photocardsList.renderItems(result);
   })
   .catch((error) => {
     console.log(error);
-  })
-  console.log(apiInitialPhotocards)
+  }
+)

@@ -12,7 +12,7 @@ export default class Section {
 
   // Метод отрисовки всех элементов, которую возвращает Card
   renderItems(items) {
-    items.forEach((item) => {
+    items.reverse().forEach((item) => {
       this._renderer(item);
     })
   }

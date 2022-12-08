@@ -6,16 +6,16 @@ export default class UserInfo {
     this._userAvatar = document.querySelector(profileAvatar);
   }
 
-  // Геттер возвращения объекта с данными пользователя
+  // Возвращение объекта с данными пользователя
   getUserInfo() {
     return {
       profileName: this._userName.textContent,
       profileJob: this._userDescription.textContent,
-      rofileAvatar: this._userAvatar.src
+      profileAvatar: this._userAvatar.src
     }
   }
 
-  // Сеттер добавления новых данных пользователя на страницу
+  // Добавление новых данных пользователя на страницу
   setUserInfo(profileName, profileJob, profileAvatar) {
     this._userName.textContent = profileName;
     this._userDescription.textContent = profileJob;
