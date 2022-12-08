@@ -1,6 +1,6 @@
 export default class Api {
-  constructor({ url, headers }) {
-    this._url = url;
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
     this._headers = headers;
   }
 
@@ -15,7 +15,7 @@ export default class Api {
 
   // Получение информации о пользователе
   getUserInfo() {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers
     })
     .then(this._checkResponse);
@@ -23,7 +23,7 @@ export default class Api {
 
   // Изменение информации о пользователе
   editUserInfo(name, about) {
-    return fetch(`${this._url}/users/me`, {
+    return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({ name, about })
@@ -33,7 +33,7 @@ export default class Api {
 
   // Получение массива карточек
   getPhotocards() {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers
     })
     .then(this._checkResponse);
@@ -41,7 +41,7 @@ export default class Api {
 
   // Добавление новой карточки в галерею
   addNewPhotocard(name, link) {
-    return fetch(`${this._url}/cards`, {
+    return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body: JSON.stringify({ name, link })
