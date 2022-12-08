@@ -22,14 +22,11 @@ export default class Api {
   }
 
   // Изменение информации о пользователе
-  editUserInfo(name, job) {
+  editUserInfo(name, about) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({ // В теле запроса отправляются данные на сервер с предварительным преобразованием в строку
-        name: name,
-        about: job
-      })
+      body: JSON.stringify({ name, about })
     })
     .then(this._checkResponse);
   }
@@ -42,9 +39,18 @@ export default class Api {
     .then(this._checkResponse);
   }
 
+  // Добавление новой карточки в галерею
+  addNewPhotocard(name, link) {
+    return fetch(`${this._url}/cards`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({ name, link })
+    })
+    .then(this._checkResponse);
+  }
 
 
-  // addNewPhotocard();
+
 
   // showPhotocardLikes();
 

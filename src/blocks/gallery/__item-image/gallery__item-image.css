@@ -3,7 +3,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 25% 75%;
   border-radius: 10px 10px 0 0;
   grid-area: image;
   filter: brightness(86%);

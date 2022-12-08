@@ -53,12 +53,14 @@ const photocardsList = new Section({
 
 // Попап с добавлением пользователем новых фотокарточек (в data собираются значения инпутов (name))
 const submitAddingPhotocardForm = data => {
-  const photocardValue = {
-    name: data.photocardName,
-    link: data.photocardLink
-  }
-
-  photocardsList.addItem(createPhotocard(photocardValue));
+  // Добавление новой карточки в галерею
+  api.addNewPhotocard(data.photocardName, data.photocardLink)
+    .then(({ name, link }) => {
+      photocardsList.addItem(createPhotocard({ name, link }));
+    })
+    .catch((error) => {
+      console.log(`Ошибка при добавление новой карточки: ${error}`);
+    })
   popupAddingPhotocard.close(); // закрытие попапа
 }
 
@@ -83,15 +85,14 @@ const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob
 
 // Сабмит формы редактирования информации о пользователе (данные собираются из полей формы)
 const submitEditingUserInfoForm = data => {
-  // popupEditingUserInfoForm.renderLoading(true);
-
-  api.editUserInfo(data.profileName, data.profileJob) // изменение информации пользователя на странице при сабмите формы
+  // Изменение информации пользователя на странице при сабмите формы
+  api.editUserInfo(data.profileName, data.profileJob)
   .then((user) => {
     editingUserInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
     popupEditingUserInfoForm.close(); // закрытие попапа после успешного сабмита
   })
   .catch((error) => {
-    console.log(error);
+    console.log(`Ошибка при редактировании информации о пользователе: ${error}`);
   })
 }
 
@@ -122,20 +123,20 @@ const api = new Api({
 
 // Получение информации о пользователе с сервера
 api.getUserInfo()
-  .then((result) => {
-    editingUserInfo.setUserInfo(result.name, result.about, result.avatar); // "name" и "about" соответствуют ключам в Api
+  .then((user) => {
+    editingUserInfo.setUserInfo(user.name, user.about, user.avatar); // "name" и "about" соответствуют ключам в Api
   })
   .catch((error) => {
-    console.log(error);
+    console.log(`Ошибка при получении информации о пользователе: ${error}`);
   }
 )
 
 // Загрузка галереи на страницу
 api.getPhotocards()
-  .then((result) => {
-    photocardsList.renderItems(result);
+  .then((photocards) => {
+    photocardsList.renderItems(photocards);
   })
   .catch((error) => {
-    console.log(error);
+    console.log(`Ошибка при загрузке галереи: ${error}`);
   }
 )
