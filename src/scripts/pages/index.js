@@ -115,7 +115,7 @@ profileEditButton.addEventListener('click', () => {
 // API
 // Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
 const api = new Api({
-  url: 'https://nomoreparties.co/v1/cohort-54/',
+  url: 'https://nomoreparties.co/v1/cohort-54',
   headers: {authorization: 'ab13029f-8c56-4dec-b26e-24c2c3894c0c',
     'Content-type': 'application/json'}
 })

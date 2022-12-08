@@ -1,6 +1,6 @@
 // КЛАСС ФОТОКАРТОЧКИ
 export default class Card {
-  constructor({ name, link }, templateSelector, handleCardClick) {
+  constructor({ name, link }, templateSelector, handleCardClick) { // Передача названия, ссылки, селектора шаблона и слушателя карточки
     this._title = name;
     this._alt = `Название места на фотографии: ${this._title}`;
     this._image = link;
