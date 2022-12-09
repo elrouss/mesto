@@ -1,0 +1,7 @@
+.gallery__item-likes {
+  margin-top: 23px;
+  grid-area: icon;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
