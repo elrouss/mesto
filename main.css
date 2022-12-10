@@ -28,6 +28,7 @@
 .popup__container{background:#fff;border-radius:10px;box-shadow:0 0 25px rgba(0,0,0,.15);box-sizing:border-box;max-width:430px;padding:34px 36px 37px;position:relative}@media (max-width:696px){.popup__container{max-width:282px;padding:25px 22px}}
 .popup__title{color:#000;font-size:24px;font-weight:inherit;line-height:120.83333%;margin:0}@media (max-width:696px){.popup__title{font-size:18px;line-height:122.22222%}}
 .popup__form{padding-top:44px}@media (max-width:696px){.popup__form{padding-top:77px}}
+.popup__form_type_confirmation-deletion{padding:0}
 .popup__form-fieldset{border:none;color:#000;display:flex;flex-direction:column;margin:0;padding:0}
 .popup__form-field{border:none;border-bottom:1px solid rgba(0,0,0,.2);box-sizing:border-box;font-size:14px;font-weight:400;padding-bottom:13px;width:358px}.popup__form-field::-moz-placeholder{color:#c4c4c4}.popup__form-field::placeholder{color:#c4c4c4}.popup__form-field:nth-child(3){margin-top:35px}@media (max-width:696px){.popup__form-field{padding-bottom:9px;width:238px}.popup__form-field:nth-child(3){margin-top:28px}}
 .popup__form-field_type_error{border-bottom:1px solid red}
@@ -38,5 +39,6 @@
 .popup__image-caption{bottom:-25px;font-size:12px;font-weight:400;line-height:125%;margin:0;position:absolute}
 .popup__submit-button{background:#000;border:none;border-radius:2px;color:#fff;font-size:18px;font-weight:400;height:50px;line-height:122.22222%;margin:46px 0 0;padding:0;transition:opacity .4s ease;width:358px}.popup__submit-button:hover{cursor:pointer;opacity:.8}@media (max-width:696px){.popup__submit-button{font-size:14px;height:46px;line-height:121.42857%;margin-top:44px;width:238px}}
 .popup__submit-button_disabled{background:#fff;border:1px solid #000;border-radius:2px;color:#000;opacity:.2;transition:none}.popup__submit-button_disabled:hover{cursor:default;opacity:.2}
+.popup__submit-button_type_confirmation-deletion{margin-top:32px}
 .popup__closing-button{background-color:transparent;background-image:url(2ceb783afbab75916ddc.svg);background-repeat:no-repeat;background-size:contain;border:none;height:32px;padding:0;position:absolute;right:-40px;top:-38px;transition:opacity .4s ease;width:32px}.popup__closing-button:hover{cursor:pointer;opacity:.6}@media (max-width:696px){.popup__closing-button{height:20px;right:0;width:20px}}
 
