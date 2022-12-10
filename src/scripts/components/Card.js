@@ -1,12 +1,15 @@
 // КЛАСС ФОТОКАРТОЧКИ
 export default class Card {
-  constructor({ name, link, likes }, templateSelector, handleCardClick) { // Передача названия, ссылки, селектора шаблона и слушателя карточки
+  constructor({ name, link, likes, _id }, templateSelector, handleCardClick, confirmCardDeletion) { // Передача названия, ссылки, селектора шаблона и слушателя карточки
     this._title = name;
     this._alt = `Название места на фотографии: ${this._title}`;
     this._image = link;
+    this._likes = likes;
+    this._id = _id;
+
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
-    this._likes = likes;
+    this._confirmCardDeletion = confirmCardDeletion;
   }
 
   // Метод получения шаблона разметки из HTML
@@ -33,16 +36,8 @@ export default class Card {
     }
   }
 
-  // Метод открытия попапа с подтверждением удаления карточки
-  // _confirmCardDeletion() {
-  //   this._cardButtonDeletion = this._element.querySelector('.gallery__item-delete-button');
-  //   // this._cardButtonDeletion.addEventListener('click', () => {
-  //   //   this._deleteCard();
-  //   // })
-  // }
-
   // Метод удаления карточки
-  _deleteCard() {
+  deleteCard() {
     this._element.remove();
   }
 
@@ -57,7 +52,7 @@ export default class Card {
     // Удаление карточки
     this._cardButtonDeletion = this._element.querySelector('.gallery__item-delete-button');
     this._cardButtonDeletion.addEventListener('click', () => {
-      this._deleteCard();
+      this._confirmCardDeletion(this._id);
     })
 
     // Получение на вход данных карточки

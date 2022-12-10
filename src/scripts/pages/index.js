@@ -26,6 +26,31 @@ import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
 
+// API
+// Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
+const api = new Api(apiSettings);
+
+// Получение информации о пользователе с сервера
+api.getUserInfo()
+  .then((user) => {
+    editingUserInfo.setUserInfo(user.name, user.about, user.avatar); // "name" и "about" соответствуют ключам в Api
+  })
+  .catch((error) => {
+    console.log(`Ошибка при получении информации о пользователе: ${error}`);
+  }
+)
+
+// Загрузка галереи на страницу
+api.getPhotocards()
+  .then((photocards) => {
+    photocardsList.renderItems(photocards);
+  })
+  .catch((error) => {
+    console.log(`Ошибка при загрузке галереи: ${error}`);
+  }
+)
+
+
 // КЛАССЫ
 // ФОТОКАРТОЧКИ
 // Попап с фотографией карточки
@@ -39,7 +64,14 @@ const handleCardClick = (name, link, alt) => {
 
 // Функция отрисовки фотокарточек
 const createPhotocard = card => {
-  const photocard = new Card(card, '.gallery-template', handleCardClick);
+  const photocard = new Card(card, '.gallery-template', handleCardClick, (id) => {
+    popupConfirmationDeletion.open();
+    popupConfirmationDeletion.submitDeletion(() => {
+    api.deletePhotocard(id);
+    photocard.deleteCard();
+    popupConfirmationDeletion.close();
+    }); // TODO: реализовать удаление по нажатию на Enter NB! Четвертая функция занимается удаление карточек
+  });
   const photocardElement = photocard.generateCard();
 
   return photocardElement;
@@ -58,8 +90,8 @@ const photocardsList = new Section({
 const submitAddingPhotocardForm = data => {
   // Добавление новой карточки в галерею
   api.addNewPhotocard(data.photocardName, data.photocardLink)
-    .then(({ name, link, likes }) => {
-      photocardsList.addItem(createPhotocard({ name, link, likes }));
+    .then(({ name, link, likes, _id }) => {
+      photocardsList.addItem(createPhotocard({ name, link, likes, _id }));
     })
     .catch((error) => {
       console.log(`Ошибка при добавление новой карточки: ${error}`);
@@ -81,6 +113,10 @@ profileAddButton.addEventListener('click', () => {
 const validationPopupAddingPhotocard = new FormValidator(validationSettings, formAddingPhotocard);
 validationPopupAddingPhotocard.enableValidation();
 validationPopupAddingPhotocard.disableSubmitButton();
+
+// Попап с подтверждением удаления фотокарточки
+const popupConfirmationDeletion = new PopupWithConfirmation(popupTypeConfirmationDeletion); // Здесь не передается функция удаления карточки
+popupConfirmationDeletion.setEventListeners();
 
 
 // РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
@@ -115,27 +151,3 @@ profileEditButton.addEventListener('click', () => {
 
   validationPopupProfile.resetValidation(); // очистка полей валидации
 })
-
-// API
-// Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
-const api = new Api(apiSettings);
-
-// Получение информации о пользователе с сервера
-api.getUserInfo()
-  .then((user) => {
-    editingUserInfo.setUserInfo(user.name, user.about, user.avatar); // "name" и "about" соответствуют ключам в Api
-  })
-  .catch((error) => {
-    console.log(`Ошибка при получении информации о пользователе: ${error}`);
-  }
-)
-
-// Загрузка галереи на страницу
-api.getPhotocards()
-  .then((photocards) => {
-    photocardsList.renderItems(photocards);
-  })
-  .catch((error) => {
-    console.log(`Ошибка при загрузке галереи: ${error}`);
-  }
-)

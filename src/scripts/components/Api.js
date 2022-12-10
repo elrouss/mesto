@@ -49,12 +49,12 @@ export default class Api {
     .then(this._checkResponse);
   }
 
-  
-
-
-
-
-
-
-  // deletePhotocard();
+  // Удаление карточки
+  deletePhotocard(id) {
+    return fetch(`${this._baseUrl}/cards/${id}`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(this._checkResponse);
+  }
 }
