@@ -57,4 +57,22 @@ export default class Api {
     })
     .then(this._checkResponse);
   }
+
+  // Добавление лайка
+  addPhotocardLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: 'PUT',
+      headers: this._headers
+    })
+    .then(this._checkResponse);
+  }
+
+  // Удаление лайка
+  deletePhotocardLike(id) {
+    return fetch(`${this._baseUrl}/cards/${id}/likes`, {
+      method: 'DELETE',
+      headers: this._headers
+    })
+    .then(this._checkResponse);
+  }
 }

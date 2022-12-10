@@ -77,6 +77,19 @@ const createPhotocard = card => {
     photocard.deleteCard();
     popupConfirmationDeletion.close();
     }); // TODO: реализовать удаление по нажатию на Enter NB! Четвертая функция занимается удаление карточек
+  },
+  (id) => {
+    if (photocard.isLiked()) {
+      api.deletePhotocardLike(id)
+      .then ((response) => {
+        photocard.showPhotocardLikes(response.likes);
+      })
+    } else {
+      api.addPhotocardLike(id)
+      .then ((response) => {
+        photocard.showPhotocardLikes(response.likes);
+      })
+    }
   });
   const photocardElement = photocard.generateCard();
 
