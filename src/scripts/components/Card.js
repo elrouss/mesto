@@ -1,11 +1,12 @@
 // КЛАСС ФОТОКАРТОЧКИ
 export default class Card {
-  constructor({ name, link }, templateSelector, handleCardClick) { // Передача названия, ссылки, селектора шаблона и слушателя карточки
+  constructor({ name, link, likes }, templateSelector, handleCardClick) { // Передача названия, ссылки, селектора шаблона и слушателя карточки
     this._title = name;
     this._alt = `Название места на фотографии: ${this._title}`;
     this._image = link;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._likes = likes;
   }
 
   // Метод получения шаблона разметки из HTML
@@ -23,6 +24,22 @@ export default class Card {
   _handleButtonLike() {
     this._cardButtonLike.classList.toggle('gallery__item-like-button_active');
   }
+
+  // Отображение количества лайков
+  _showPhotocardLikes() {
+    this._likesCounter = this._element.querySelector('.gallery__item-likes-counter');
+    if (this._likes.length > 0) {
+      this._likesCounter.textContent = this._likes.length;
+    }
+  }
+
+  // Метод открытия попапа с подтверждением удаления карточки
+  // _confirmCardDeletion() {
+  //   this._cardButtonDeletion = this._element.querySelector('.gallery__item-delete-button');
+  //   // this._cardButtonDeletion.addEventListener('click', () => {
+  //   //   this._deleteCard();
+  //   // })
+  // }
 
   // Метод удаления карточки
   _deleteCard() {
@@ -60,6 +77,8 @@ export default class Card {
 
     this._cardImage.src = this._image;
     this._cardImage.alt = this._alt;
+
+    this._showPhotocardLikes();
 
     return this._element;
   }

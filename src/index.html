@@ -34,7 +34,7 @@
         <h2 class="gallery__item-title"></h2>
         <div class="gallery__item-likes">
           <button type="button" aria-label="Кнопка лайка фотокарточки" class="gallery__item-like-button"></button>
-          <span class="gallery__item-likes-counter">0</span>
+          <span class="gallery__item-likes-counter"></span>
         </div>
       </article>
     </template>
@@ -72,6 +72,13 @@
       <div class="popup__container-image">
         <img src="#" alt="" class="popup__image">
         <h3 class="popup__image-caption"></h3>
+        <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
+      </div>
+    </div>
+    <div class="popup popup_type_confirmation-deletion">
+      <div class="popup__container">
+        <h3 class="popup__popup__title">Вы уверены?</h3>
+        <button type="submit" class="popup__submit-button">Да</button>
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
       </div>
     </div>

@@ -14,6 +14,9 @@ export const popupTypeAddingPhotocard = document.querySelector('.popup_type_add-
 // Поля формы
 export const formAddingPhotocard = document.querySelector('.popup__form_type_photocards');
 
+// Модальное окно с подтверждением удаления фотокарточки
+export const popupTypeConfirmationDeletion = document.querySelector('.popup_type_confirmation-deletion');
+
 // Модальное окно с открытием фотографии карточки
 export const popupPhotoZoom = document.querySelector('.popup_type_image');
 
@@ -29,4 +32,13 @@ export const validationSettings = {
   inactiveButtonClass: 'popup__submit-button_disabled',
   inputErrorClass: 'popup__form-field_type_error',
   errorClass: 'popup__error_visible'
+}
+
+// API
+export const apiSettings = {
+  baseUrl: 'https://nomoreparties.co/v1/cohort-54',
+  headers: {
+    authorization: 'ab13029f-8c56-4dec-b26e-24c2c3894c0c',
+    'Content-type': 'application/json'
+  }
 }

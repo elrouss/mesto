@@ -8,10 +8,12 @@ import {
   jobInput,
   popupTypeAddingPhotocard,
   formAddingPhotocard,
+  popupTypeConfirmationDeletion,
   popupPhotoZoom,
   profileEditButton,
   profileAddButton,
-  validationSettings
+  validationSettings,
+  apiSettings
 } from '../utils/constants.js';
 
 import Api from '../components/Api';
@@ -19,6 +21,7 @@ import Card from '../components/Card.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithConfirmation from '../components/PopupWithConfirmation';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
@@ -55,8 +58,8 @@ const photocardsList = new Section({
 const submitAddingPhotocardForm = data => {
   // Добавление новой карточки в галерею
   api.addNewPhotocard(data.photocardName, data.photocardLink)
-    .then(({ name, link }) => {
-      photocardsList.addItem(createPhotocard({ name, link }));
+    .then(({ name, link, likes }) => {
+      photocardsList.addItem(createPhotocard({ name, link, likes }));
     })
     .catch((error) => {
       console.log(`Ошибка при добавление новой карточки: ${error}`);
@@ -115,13 +118,7 @@ profileEditButton.addEventListener('click', () => {
 
 // API
 // Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
-const api = new Api({
-  baseUrl: 'https://nomoreparties.co/v1/cohort-54',
-  headers: {
-    authorization: 'ab13029f-8c56-4dec-b26e-24c2c3894c0c',
-    'Content-type': 'application/json'
-  }
-})
+const api = new Api(apiSettings);
 
 // Получение информации о пользователе с сервера
 api.getUserInfo()
