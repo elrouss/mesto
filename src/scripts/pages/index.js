@@ -37,7 +37,7 @@ let userId;
 
 api.getUserInfo()
   .then((user) => {
-    editingUserInfo.setUserInfo(user.name, user.about, user.avatar); // "name" и "about" соответствуют ключам в Api
+    editingUserInfo.setUserInfo(user.name, user.about/*, user.avatar*/); // "name" и "about" соответствуют ключам в Api
 
     userId = user._id;
   })
@@ -139,7 +139,7 @@ popupConfirmationDeletion.setEventListeners();
 
 
 // РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
-const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job', profileAvatar: '.profile__avatar' });
+const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job'/*, profileAvatar: '.profile__avatar'*/ });
 
 // Сабмит формы редактирования информации о пользователе (данные собираются из полей формы)
 const submitEditingUserInfoForm = data => {
