@@ -25,15 +25,21 @@ import PopupWithConfirmation from '../components/PopupWithConfirmation';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
+// TODO: сделать автоматическое обновление страницы
 
 // API
 // Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
 const api = new Api(apiSettings);
 
 // Получение информации о пользователе с сервера
+// id пользователя
+let userId;
+
 api.getUserInfo()
   .then((user) => {
     editingUserInfo.setUserInfo(user.name, user.about, user.avatar); // "name" и "about" соответствуют ключам в Api
+
+    userId = user._id;
   })
   .catch((error) => {
     console.log(`Ошибка при получении информации о пользователе: ${error}`);
@@ -64,7 +70,7 @@ const handleCardClick = (name, link, alt) => {
 
 // Функция отрисовки фотокарточек
 const createPhotocard = card => {
-  const photocard = new Card(card, '.gallery-template', handleCardClick, (id) => {
+  const photocard = new Card(card, userId, '.gallery-template', handleCardClick, (id) => {
     popupConfirmationDeletion.open();
     popupConfirmationDeletion.submitDeletion(() => {
     api.deletePhotocard(id);
@@ -90,8 +96,8 @@ const photocardsList = new Section({
 const submitAddingPhotocardForm = data => {
   // Добавление новой карточки в галерею
   api.addNewPhotocard(data.photocardName, data.photocardLink)
-    .then(({ name, link, likes, _id }) => {
-      photocardsList.addItem(createPhotocard({ name, link, likes, _id }));
+    .then((data) => {
+      photocardsList.addItem(createPhotocard(data)); // owner._id
     })
     .catch((error) => {
       console.log(`Ошибка при добавление новой карточки: ${error}`);

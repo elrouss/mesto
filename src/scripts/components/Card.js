@@ -1,11 +1,14 @@
 // КЛАСС ФОТОКАРТОЧКИ
 export default class Card {
-  constructor({ name, link, likes, _id }, templateSelector, handleCardClick, confirmCardDeletion) { // Передача названия, ссылки, селектора шаблона и слушателя карточки
-    this._title = name;
-    this._alt = `Название места на фотографии: ${this._title}`;
-    this._image = link;
-    this._likes = likes;
-    this._id = _id;
+  constructor(data, userId, templateSelector, handleCardClick, confirmCardDeletion) { // Передача названия, ссылки, селектора шаблона и слушателя карточки
+    this._title = data.name;
+    this._alt = `Описание фотографии: ${this._title}`;
+    this._image = data.link;
+    this._likes = data.likes;
+    this._id = data._id;
+    this._ownerId = data.owner._id;
+
+    this._userId = userId;
 
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
@@ -74,6 +77,10 @@ export default class Card {
     this._cardImage.alt = this._alt;
 
     this._showPhotocardLikes();
+
+    if (this._ownerId !== this._userId) {
+      this._cardButtonDeletion.style.display = 'none';
+    }
 
     return this._element;
   }
