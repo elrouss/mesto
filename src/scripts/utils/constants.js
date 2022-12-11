@@ -9,6 +9,11 @@ export const formEditingProfileInfo = document.querySelector('.popup__form_type_
 export const nameInput = document.querySelector('.popup__form-field_type_profile-name');
 export const jobInput = document.querySelector('.popup__form-field_type_profile-job');
 
+// Модальное окно с формой изменения аватара
+export const popupTypeEditingUserAvatar = document.querySelector('.popup_type_edit-avatar');
+// Форма и поля
+export const formEditingUserAvatar = document.querySelector('.popup__form_type_avatar');
+
 // Модальное окно с формой добавления новой фотокарточки
 export const popupTypeAddingPhotocard = document.querySelector('.popup_type_add-photocard');
 // Поля формы
@@ -19,6 +24,9 @@ export const popupTypeConfirmationDeletion = document.querySelector('.popup_type
 
 // Модальное окно с открытием фотографии карточки
 export const popupPhotoZoom = document.querySelector('.popup_type_image');
+
+// Открытие модальное окна с редактированием аватара
+export const profileEditAvatar = document.querySelector('.profile__container-avatar');
 
 // Кнопки открытия модальных окон
 export const profileEditButton = document.querySelector('.profile__edit-button');

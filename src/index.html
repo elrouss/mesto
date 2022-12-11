@@ -15,7 +15,7 @@
     <main class="content">
       <section class="profile">
         <div class="profile__container-avatar">
-          <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
+          <img src="#" alt="Аватар пользователя" class="profile__avatar">
         </div>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
@@ -29,6 +29,7 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2022 Борис Зашляпин</p>
     </footer>
+
     <template class="gallery-template">
       <article class="gallery__item">
         <img src="#" alt="" class="gallery__item-image">
@@ -40,6 +41,7 @@
         </div>
       </article>
     </template>
+
     <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
@@ -55,6 +57,21 @@
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
       </div>
     </div>
+
+    <div class="popup popup_type_edit-avatar">
+      <div class="popup__container">
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form name="profileAvatarEditor" class="popup__form popup__form_type_avatar" novalidate>
+          <fieldset class="popup__form-fieldset">
+            <input id="avatar-url" name="profileAvatar" type="url" placeholder="Ссылка на изображение" value="" required class="popup__form-field popup__form-field_type_edit-avatar-link">
+            <span class="popup__error avatar-url-error"></span>
+          </fieldset>
+          <button type="submit" class="popup__submit-button">Сохранить</button>
+        </form>
+        <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
+      </div>
+    </div>
+
     <div class="popup popup_type_add-photocard">
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>
@@ -62,7 +79,7 @@
           <fieldset class="popup__form-fieldset">
             <input id="photocard-name" name="photocardName" type="text" placeholder="Название" value="" minlength="1" maxlength="30" required class="popup__form-field popup__form-field_type_add-photocard-name">
             <span class="popup__error photocard-name-error"></span>
-            <input id="photocard-url" name="photocardLink" type="url" placeholder="Ссылка на картинку" value="" required class="popup__form-field popup__form-field_type_add-photocard-link">
+            <input id="photocard-url" name="photocardLink" type="url" placeholder="Ссылка на изображение" value="" required class="popup__form-field popup__form-field_type_add-photocard-link">
             <span class="popup__error photocard-url-error"></span>
           </fieldset>
           <button type="submit" class="popup__submit-button">Создать</button>
@@ -70,6 +87,7 @@
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
       </div>
     </div>
+
     <div class="popup popup_type_image">
       <div class="popup__container-image">
         <img src="#" alt="" class="popup__image">
@@ -77,15 +95,16 @@
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
       </div>
     </div>
+
     <div class="popup popup_type_confirmation-deletion">
       <div class="popup__container">
         <h3 class="popup__title">Вы уверены?</h3>
         <form name="photocardConfirmationDeletion" class="popup__form popup__form_type_confirmation-deletion" novalidate>
           <button type="submit" class="popup__submit-button popup__submit-button_type_confirmation-deletion">Да</button>
         </form>
-
         <button type="button" aria-label="Кнопка закрытия модального окна" class="popup__closing-button"></button>
       </div>
     </div>
+
   </body>
 </html>

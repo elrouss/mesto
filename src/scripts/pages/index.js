@@ -6,6 +6,9 @@ import {
   formEditingProfileInfo,
   nameInput,
   jobInput,
+  profileEditAvatar,
+  popupTypeEditingUserAvatar,
+  formEditingUserAvatar,
   popupTypeAddingPhotocard,
   formAddingPhotocard,
   popupTypeConfirmationDeletion,
@@ -25,8 +28,6 @@ import PopupWithConfirmation from '../components/PopupWithConfirmation';
 import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 
-// TODO: сделать автоматическое обновление страницы
-
 // API
 // Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
 const api = new Api(apiSettings);
@@ -37,7 +38,8 @@ let userId;
 
 api.getUserInfo()
   .then((user) => {
-    editingUserInfo.setUserInfo(user.name, user.about/*, user.avatar*/); // "name" и "about" соответствуют ключам в Api
+    editingUserInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
+    editingUserInfo.setUserAvatar(user.avatar);
 
     userId = user._id;
   })
@@ -76,7 +78,7 @@ const createPhotocard = card => {
     api.deletePhotocard(id);
     photocard.deleteCard();
     popupConfirmationDeletion.close();
-    }); // TODO: реализовать удаление по нажатию на Enter NB! Четвертая функция занимается удаление карточек
+    }); // NB! Четвертая функция занимается удаление карточек
   },
   (id) => {
     if (photocard.isLiked()) {
@@ -139,7 +141,7 @@ popupConfirmationDeletion.setEventListeners();
 
 
 // РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
-const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job'/*, profileAvatar: '.profile__avatar'*/ });
+const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job', profileAvatar: '.profile__avatar' });
 
 // Сабмит формы редактирования информации о пользователе (данные собираются из полей формы)
 const submitEditingUserInfoForm = data => {
@@ -169,4 +171,29 @@ profileEditButton.addEventListener('click', () => {
   jobInput.value = input.profileJob;
 
   validationPopupProfile.resetValidation(); // очистка полей валидации
+})
+
+// Сабмит формы с обновлением аватара
+const submitEditingUserAvatar = data => {
+  api.editUserAvatar(data.profileAvatar)
+  .then((user) => {
+    editingUserInfo.setUserAvatar(user.avatar);
+    popupEditingUserAvatar.close();
+  })
+  .catch((error) => {
+    console.log(`Ошибка при обновлении аватара пользователя: ${error}`);
+  })
+}
+
+const popupEditingUserAvatar = new PopupWithForm(popupTypeEditingUserAvatar, submitEditingUserAvatar);
+popupEditingUserAvatar.setEventListeners();
+
+const validationPopupEditingUserAvatar = new FormValidator(validationSettings, formEditingUserAvatar);
+validationPopupEditingUserAvatar.enableValidation();
+validationPopupEditingUserAvatar.disableSubmitButton();
+
+profileEditAvatar.addEventListener('click', () => {
+  popupEditingUserAvatar.open();
+
+  validationPopupEditingUserAvatar.resetValidation();
 })

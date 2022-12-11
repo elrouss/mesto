@@ -31,6 +31,16 @@ export default class Api {
     .then(this._checkResponse);
   }
 
+  // Обновление аватара
+  editUserAvatar(avatar) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({ avatar })
+    })
+    .then(this._checkResponse);
+  }
+
   // Получение массива карточек
   getPhotocards() {
     return fetch(`${this._baseUrl}/cards`, {
