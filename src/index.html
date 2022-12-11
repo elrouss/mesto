@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="distribution" content="global">
-    <meta name="description" content="Сайт посвящен Жаку-Иву Кусто (1910-1997), выдающемуся французскому исследователю Мирового океана, фотографу, режиссеру, изобретателю, автору множества книг и фильмов.">
+    <meta name="description" content="Учебный проект &laquo;Место&raquo; (подключение к удаленному серверу с реализацией основного функционала популярных соцсетей: Instagram, Facebook, VKontakte)">
     <meta name="author" content="Борис Зашляпин">
     <title>Mesto</title>
   </head>
@@ -14,7 +14,9 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
+        <div class="profile__container-avatar">
+          <img src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя" class="profile__avatar">
+        </div>
           <div class="profile__info">
             <h1 class="profile__name"></h1>
             <p class="profile__job"></p>
