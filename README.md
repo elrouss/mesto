@@ -1,7 +1,9 @@
 <h1 align="center">Проект: "Место"</h1>
 
 <div align="center">
-<img width="600" alt="Снимок экрана 2022-12-12 в 00 59 03" src="https://user-images.githubusercontent.com/108838349/206931608-5636650f-d971-4993-a0ff-ad0a0bb86619.png">
+  <a href="https://elrouss.github.io/mesto/">
+    <img width="600" alt="Снимок экрана 2022-12-12 в 00 59 03" src="https://user-images.githubusercontent.com/108838349/206931608-5636650f-d971-4993-a0ff-ad0a0bb86619.png">
+  </a>
 </div>
 
 ## Описание проекта
@@ -31,7 +33,9 @@
 2. npm start - запустить приложение
 
 <div align="center">
-<img width="400" alt="Снимок экрана 2022-12-12 в 13 51 47" src="https://user-images.githubusercontent.com/108838349/207027387-903230e6-c5b4-4a36-9950-015b9205b114.png">
+  <a href="https://elrouss.github.io/mesto/">
+    <img width="400" alt="Снимок экрана 2022-12-12 в 13 51 47" src="https://user-images.githubusercontent.com/108838349/207027387-903230e6-c5b4-4a36-9950-015b9205b114.png">
+  </a>
 </div>
 
 ## Ссылка на проект
