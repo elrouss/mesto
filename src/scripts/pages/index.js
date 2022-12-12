@@ -32,33 +32,21 @@ import FormValidator from '../components/FormValidator.js';
 // Создание универсального класса, на котором вызываются методы, с общими данными во избежание дублирования кода
 const api = new Api(apiSettings);
 
-// Получение информации о пользователе с сервера
 // id пользователя
 let userId;
 
-// NB! Попробовать объединить через Promise.all
+// Объединение в один Promise, для того чтобы карточки отрисовывались только после получения id для корректного отображения корзины удаления
+Promise.all([api.getUserInfo(), api.getPhotocards()])
+.then(([user, photocards]) => {
+  userId = user._id;
+  userInfo.setUserInfo(user.name, user.about); // "name", "about" и "avatar" соответствуют ключам в Api
+  userInfo.setUserAvatar(user.avatar);
 
-api.getUserInfo()
-  .then((user) => {
-    userInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
-    userInfo.setUserAvatar(user.avatar);
-
-    userId = user._id;
-  })
-  .catch((error) => {
-    console.log(`Ошибка при получении информации о пользователе: ${error}`);
-  }
-)
-
-// Загрузка галереи на страницу
-api.getPhotocards()
-  .then((photocards) => {
-    photocardsList.renderItems(photocards);
-  })
-  .catch((error) => {
-    console.log(`Ошибка при загрузке галереи: ${error}`);
-  }
-)
+  photocardsList.renderItems(photocards);
+})
+.catch((error) => {
+  console.log(`Ошибка в процессе загрузки данных пользователя и галереи: ${error}`);
+})
 
 
 // КЛАССЫ
