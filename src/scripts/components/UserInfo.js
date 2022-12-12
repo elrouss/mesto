@@ -16,12 +16,17 @@ export default class UserInfo {
 
   // Добавление новых данных пользователя на страницу
   setUserInfo(profileName, profileJob) {
-    this._userName.textContent = profileName;
-    this._userDescription.textContent = profileJob;
+    // Проверка наличия значений в виде аргументов для корректной работы с сервером (дополнительная подстраховка)
+    if (profileName && profileJob) {
+      this._userName.textContent = profileName;
+      this._userDescription.textContent = profileJob;
+    }
   }
 
   // Обновление аватара
   setUserAvatar(profileAvatar) {
-    this._userAvatar.src = profileAvatar;
+    if (profileAvatar) {
+      this._userAvatar.src = profileAvatar;
+    }
   }
 }
