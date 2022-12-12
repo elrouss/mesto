@@ -7,6 +7,9 @@ export default class PopupWithForm extends Popup {
 
     this._popupForm = this._popup.querySelector('.popup__form');
     this._popupFormInputs = Array.from(this._popup.querySelectorAll('.popup__form-field'));
+
+    this._popupSubmitButton = this._popup.querySelector('.popup__submit-button');
+    this._popupSubmitButtonOriginalText = this._popupSubmitButton.textContent;
   }
 
   // Геттер сбора значений всех полей формы (создание пустого объекта, проход по инпутам и заполнение объекта свойствами)
@@ -22,6 +25,13 @@ export default class PopupWithForm extends Popup {
   close() {
     super.close();
     this._popupForm.reset(); // метод определяется для формы
+  }
+
+  // Уведомление пользователя о процессе загрузки
+  renderLoading(isLoading) {
+    isLoading
+    ? this._popupSubmitButton.textContent = 'Сохранение...'
+    : this._popupSubmitButton.textContent = this._popupSubmitButtonOriginalText;
   }
 
   // Метод установки обработчиков событий (добавление обработчиков клика иконке закрытия и сабмиту формы)

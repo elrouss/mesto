@@ -109,6 +109,8 @@ const photocardsList = new Section({
 
 // Попап с добавлением пользователем новых фотокарточек (в data собираются значения инпутов (name))
 const submitAddingPhotocardForm = data => {
+  popupAddingPhotocard.renderLoading(true);
+
   // Добавление новой карточки в галерею
   api.addNewPhotocard(data.photocardName, data.photocardLink)
     .then((data) => {
@@ -116,6 +118,9 @@ const submitAddingPhotocardForm = data => {
     })
     .catch((error) => {
       console.log(`Ошибка при добавление новой карточки: ${error}`);
+    })
+    .finally(() => {
+      popupAddingPhotocard.renderLoading(false);
     })
   popupAddingPhotocard.close(); // закрытие попапа
 }
@@ -145,6 +150,8 @@ const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob
 
 // Сабмит формы редактирования информации о пользователе (данные собираются из полей формы)
 const submitEditingUserInfoForm = data => {
+  popupEditingUserInfoForm.renderLoading(true);
+
   // Изменение информации пользователя на странице при сабмите формы
   api.editUserInfo(data.profileName, data.profileJob)
   .then((user) => {
@@ -153,6 +160,9 @@ const submitEditingUserInfoForm = data => {
   })
   .catch((error) => {
     console.log(`Ошибка при редактировании информации о пользователе: ${error}`);
+  })
+  .finally(() => {
+    popupEditingUserInfoForm.renderLoading(false);
   })
 }
 
@@ -175,6 +185,8 @@ profileEditButton.addEventListener('click', () => {
 
 // Сабмит формы с обновлением аватара
 const submitEditingUserAvatar = data => {
+  popupEditingUserAvatar.renderLoading(true);
+
   api.editUserAvatar(data.profileAvatar)
   .then((user) => {
     editingUserInfo.setUserAvatar(user.avatar);
@@ -182,6 +194,9 @@ const submitEditingUserAvatar = data => {
   })
   .catch((error) => {
     console.log(`Ошибка при обновлении аватара пользователя: ${error}`);
+  })
+  .finally(() => {
+    popupEditingUserAvatar.renderLoading(false);
   })
 }
 
