@@ -36,10 +36,12 @@ const api = new Api(apiSettings);
 // id пользователя
 let userId;
 
+// NB! Попробовать объединить через Promise.all
+
 api.getUserInfo()
   .then((user) => {
-    editingUserInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
-    editingUserInfo.setUserAvatar(user.avatar);
+    userInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
+    userInfo.setUserAvatar(user.avatar);
 
     userId = user._id;
   })
@@ -72,13 +74,19 @@ const handleCardClick = (name, link, alt) => {
 
 // Функция отрисовки фотокарточек
 const createPhotocard = card => {
-  const photocard = new Card(card, userId, '.gallery-template', handleCardClick, (id) => {
+  const photocard = new Card(card, userId, '.gallery-template', handleCardClick,
+  (id) => {
     popupConfirmationDeletion.open();
     popupConfirmationDeletion.submitDeletion(() => {
-    api.deletePhotocard(id);
-    photocard.deleteCard();
-    popupConfirmationDeletion.close();
-    }); // NB! Четвертая функция занимается удаление карточек
+    api.deletePhotocard(id)
+    .then((card) => {
+      photocard.deleteCard(card);
+      popupConfirmationDeletion.close();
+    })
+    .catch((error) => {
+      console.log(`Ошибка при удалении карточки: ${error}`);
+    })
+    })
   },
   (id) => {
     if (photocard.isLiked()) {
@@ -86,10 +94,16 @@ const createPhotocard = card => {
       .then ((response) => {
         photocard.showPhotocardLikes(response.likes);
       })
+      .catch((error) => {
+        console.log(`Ошибка при отображении лайков карточки: ${error}`);
+      })
     } else {
       api.addPhotocardLike(id)
       .then ((response) => {
         photocard.showPhotocardLikes(response.likes);
+      })
+      .catch((error) => {
+        console.log(`Ошибка при отображении лайков карточки: ${error}`);
       })
     }
   });
@@ -113,16 +127,16 @@ const submitAddingPhotocardForm = data => {
 
   // Добавление новой карточки в галерею
   api.addNewPhotocard(data.photocardName, data.photocardLink)
-    .then((data) => {
-      photocardsList.addItem(createPhotocard(data)); // owner._id
-    })
-    .catch((error) => {
-      console.log(`Ошибка при добавление новой карточки: ${error}`);
-    })
-    .finally(() => {
-      popupAddingPhotocard.renderLoading(false);
-    })
-  popupAddingPhotocard.close(); // закрытие попапа
+  .then((data) => {
+    photocardsList.addItem(createPhotocard(data)); // owner._id
+    popupAddingPhotocard.close();
+  })
+  .catch((error) => {
+    console.log(`Ошибка при добавление новой карточки: ${error}`);
+  })
+  .finally(() => {
+    popupAddingPhotocard.renderLoading(false);
+  })
 }
 
 const popupAddingPhotocard = new PopupWithForm(popupTypeAddingPhotocard, submitAddingPhotocardForm);
@@ -146,7 +160,7 @@ popupConfirmationDeletion.setEventListeners();
 
 
 // РЕДАКТИРОВАНИЕ ИНФОРМАЦИИ ПРОФИЛЯ В МОДАЛЬНОМ ОКНЕ (С СОХРАНЕНИЕМ ЗНАЧЕНИЙ, ВВОДИМЫХ ПОЛЬЗОВАТЕЛЕМ)
-const editingUserInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job', profileAvatar: '.profile__avatar' });
+const userInfo = new UserInfo({ profileName: '.profile__name', profileJob: '.profile__job', profileAvatar: '.profile__avatar' });
 
 // Сабмит формы редактирования информации о пользователе (данные собираются из полей формы)
 const submitEditingUserInfoForm = data => {
@@ -155,7 +169,7 @@ const submitEditingUserInfoForm = data => {
   // Изменение информации пользователя на странице при сабмите формы
   api.editUserInfo(data.profileName, data.profileJob)
   .then((user) => {
-    editingUserInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
+    userInfo.setUserInfo(user.name, user.about); // "name" и "about" соответствуют ключам в Api
     popupEditingUserInfoForm.close(); // закрытие попапа после успешного сабмита
   })
   .catch((error) => {
@@ -176,7 +190,7 @@ profileEditButton.addEventListener('click', () => {
   popupEditingUserInfoForm.open(); // открытие попапа
 
   // Получение значений со страницы
-  const input = editingUserInfo.getUserInfo();
+  const input = userInfo.getUserInfo();
   nameInput.value = input.profileName;
   jobInput.value = input.profileJob;
 
@@ -189,7 +203,7 @@ const submitEditingUserAvatar = data => {
 
   api.editUserAvatar(data.profileAvatar)
   .then((user) => {
-    editingUserInfo.setUserAvatar(user.avatar);
+    userInfo.setUserAvatar(user.avatar);
     popupEditingUserAvatar.close();
   })
   .catch((error) => {
