@@ -134,13 +134,14 @@ popupAddingPhotocard.setEventListeners(); // слушатели на закры�
 // Открытие попапа
 profileAddButton.addEventListener('click', () => {
   popupAddingPhotocard.open(); // открытие попапа
+  
   validationPopupAddingPhotocard.resetValidation(); // очистка полей валидации
+  validationPopupAddingPhotocard.disableSubmitButton();
 })
 
 // Валидация попапа добавления фотокарточки
 const validationPopupAddingPhotocard = new FormValidator(validationSettings, formAddingPhotocard);
 validationPopupAddingPhotocard.enableValidation();
-validationPopupAddingPhotocard.disableSubmitButton();
 
 // Попап с подтверждением удаления фотокарточки
 const popupConfirmationDeletion = new PopupWithConfirmation(popupTypeConfirmationDeletion); // Здесь не передается функция удаления карточки
@@ -207,10 +208,10 @@ popupEditingUserAvatar.setEventListeners();
 
 const validationPopupEditingUserAvatar = new FormValidator(validationSettings, formEditingUserAvatar);
 validationPopupEditingUserAvatar.enableValidation();
-validationPopupEditingUserAvatar.disableSubmitButton();
 
 profileEditAvatar.addEventListener('click', () => {
   popupEditingUserAvatar.open();
 
   validationPopupEditingUserAvatar.resetValidation();
+  validationPopupEditingUserAvatar.disableSubmitButton();
 })
