@@ -12,7 +12,7 @@
   <ol>
     <li><a href="#project-description">Описание проекта</a></li>
     <li><a href="#technologies">Стек технологий</a></li>
-    <li><a href="#installation">Установка и запуск страницы в локальном репозитории</a></li>
+    <li><a href="#installation">Установка и запуск проекта в локальном репозитории</a></li>
     <li><a href="#establishing">Процесс создания</a></li>
     <ul>
       <li><a href="#tasks-and-problems">Основные задачи, проблемы и их решение</a></li>
@@ -50,7 +50,7 @@ https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript-9-sprint?node-id=0%
 
 <div align="right">(<a href="#summary">к оглавлению</a>)</div>
 
-<a name="installation"><h2>3. Установка и запуск страницы в локальном репозитории</h2></a>
+<a name="installation"><h2>3. Установка и запуск проекта в локальном репозитории</h2></a>
 1. `git clone https://elrouss.github.io/mesto.git` - клонировать репозиторий (с использованием HTTPS) на свое устройство
 2. `npm i` - установить зависимости
 3. `npm run dev` - запустить приложение в режиме разработчика (в браузере ввести ссылку `http://localhost:8080/`, если приложение не открылось там автоматически)
@@ -62,16 +62,15 @@ https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript-9-sprint?node-id=0%
 1. Верстка, реализация открытия и закрытия модального окна с возможностью редактирования данных профиля
 2. Интерактивные элементы страницы: добавление и удаление карточки, лайки, открытие фотографии карточки в отдельном модальном окне, плавное открытие и закрытие попапов
 3. Валидация форм, закрытие модальных кликом по оверлею и нажатием на клавишу "Escape"
-4. Начало рефакторинга (переход к классам): добавление компонентов Card и FormValidator, разбиение на модули, директивы import & export
-5. Завершение рефакторинга: структуризация проекта, переписывание функций под 5 новых классов (Section, Popup, PopupWithImage, PopupWithForm, UserInfo), сборка проекта Вебпаком
+4. Начало рефакторинга (переход к классам): добавление компонентов <a href="https://github.com/elrouss/mesto/blob/main/src/scripts/components/Card.js">Card</a> и <a href="https://github.com/elrouss/mesto/blob/main/src/scripts/components/FormValidator.js">FormValidator</a>, разбиение на модули, директивы import & export
+5. Завершение рефакторинга: структуризация проекта, переписывание функций под 5 новых классов (<a href="https://github.com/elrouss/mesto/blob/main/src/scripts/components/Section.js">Section</a>, <a href="https://github.com/elrouss/mesto/blob/main/src/scripts/components/Popup.js">Popup</a>, <a href="https://github.com/elrouss/mesto/blob/main/src/scripts/components/PopupWithImage.js">PopupWithImage</a>, <a href="https://github.com/elrouss/mesto/blob/main/src/scripts/components/PopupWithForm.js">PopupWithForm</a>, <a href="https://github.com/elrouss/mesto/blob/main/src/scripts/components/UserInfo.js">UserInfo</a>), сборка проекта Вебпаком
 6. Подключение к серверу: загрузка информации о пользователе, обновление аватара, загрузка карточек (добавление и удаление), счетчик лайков, улучшение UX всех форм
 
 <div align="right">(<a href="#summary">к оглавлению</a>)</div>
 
 <a name="tasks-and-problems"><h3>4.1 Основные задачи, проблемы и их решение</h3></a>
-1. Плавное открытие и закрытие модальных окон
 <p>
-  <b>Решение:</b> 
+Самой трудной частью этого проекта был переход от <b>функционального</b> подхода к <b>классовому</b>: это потребовало прочтения большого количества как основного учебного материала, так и дополнительного. В отдельных случаях терялся контекст (<b>this</b>): проблема решалась использованием стрелочных функций. Кроме того, следовало постоянно отслеживать <b>навешивание</b> и <b>снятие</b> <b>(!)</b> обработчиков событий, в противном случае возникали ошибки (одна из - создание одновременно нескольких карточек при сабмите формы)
 </p>
 
 <div align="right">(<a href="#summary">к оглавлению</a>)</div>
