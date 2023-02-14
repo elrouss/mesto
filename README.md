@@ -1,4 +1,4 @@
-<h1 align="center">Учебный проект: "Место"</h1>
+<h1 align="center">Учебный проект: "Место" (frontend)</h1>
 
 <div align="center">
   <a href="https://elrouss.github.io/mesto/">
