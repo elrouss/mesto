@@ -2,7 +2,7 @@
 
 <div align="center">
   <a href="https://elrouss.github.io/mesto/">
-    <img width="600" src="https://user-images.githubusercontent.com/108838349/206931608-5636650f-d971-4993-a0ff-ad0a0bb86619.png" alt="Демонстрация стартовой страницы сайта">>
+    <img width="600" src="https://user-images.githubusercontent.com/108838349/206931608-5636650f-d971-4993-a0ff-ad0a0bb86619.png" alt="Демонстрация стартовой страницы сайта">
   </a>
 </div>
 
